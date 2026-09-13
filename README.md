@@ -1,5 +1,8 @@
 # 3주차 과제: React Memo - API 연동
+<br>
+
 [2주차 README 백업](https://app.notion.com/p/README-3d325975dbba803c9d1efcf3358dd947?source=copy_link)
+
 필수 구현 사항과 Review Question은 이 링크에서 확인 부탁드립니다.
 
 <br>
