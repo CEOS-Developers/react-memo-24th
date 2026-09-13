@@ -1,1 +1,90 @@
 @import "tailwindcss";
+
+/* 색상 */
+@theme {
+  --color-blue01: #e4edff;
+  --color-blue02: #aac8ff;
+  --color-blue03: #7ba7ff;
+  --color-blue04: #5590ff;
+  --color-blue05: #0055f5;
+  --color-blue06: #0037a3;
+  --color-blue07: #001b51;
+
+  --color-white00: #fafafa;
+
+  --color-gray01: #e0eeff;
+  --color-gray02: #a6b7cb;
+  --color-gray03: #677b93;
+  --color-gray04: #485668;
+  --color-gray05: #29313c;
+
+  --color-black00: #121416;
+
+  --color-point: #ff5656;
+}
+
+/* 타이포 */
+@font-face {
+  font-family: "Pretendard";
+  src: url("./assets/fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Pretendard", system-ui, sans-serif;
+
+  --text-display-large: 48px;
+  --text-display-large--line-height: 56px;
+  --text-display-large--font-weight: 700;
+
+  --text-heading-large: 32px;
+  --text-heading-large--line-height: 40px;
+  --text-heading-large--font-weight: 700;
+
+  --text-heading-medium: 24px;
+  --text-heading-medium--line-height: 22px;
+  --text-heading-medium--font-weight: 600;
+
+  --text-heading-small: 20px;
+  --text-heading-small--line-height: 28px;
+  --text-heading-small--font-weight: 700;
+
+  --text-body-large: 18px;
+  --text-body-large--line-height: 28px;
+  --text-body-large--font-weight: 500;
+
+  --text-body-medium: 16px;
+  --text-body-medium--line-height: 24px;
+  --text-body-medium--font-weight: 500;
+
+  --text-body-small: 14px;
+  --text-body-small--line-height: 20px;
+  --text-body-small--font-weight: 400;
+
+  --text-field-medium: 16px;
+  --text-field-medium--line-height: 24px;
+  --text-field-medium--font-weight: 400;
+
+  --text-action-medium: 18px;
+  --text-action-medium--line-height: 28px;
+  --text-action-medium--font-weight: 800;
+
+  --text-action-small: 16px;
+  --text-action-small--line-height: 24px;
+  --text-action-small--font-weight: 800;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
