@@ -1,3 +1,4 @@
+import plusIcon from '../../assets/icons/plus.svg';
 import searchIcon from '../../assets/icons/search.svg';
 import type { Memo } from '../../types/memo';
 import MemoCard from './MemoCard';
@@ -8,6 +9,7 @@ type MemoListProps = {
   label?: string;
   onTogglePin: (memoId: Memo['id']) => void;
   onSelect: (memoId: Memo['id']) => void;
+  onCreate: () => void;
 };
 
 function MemoList({
@@ -16,6 +18,7 @@ function MemoList({
   label = '작성된 메모',
   onTogglePin,
   onSelect,
+  onCreate,
 }: MemoListProps) {
   if (memos.length === 0) {
     if (isFiltered) {
@@ -39,9 +42,25 @@ function MemoList({
     }
 
     return (
-      <p className="py-20 text-center text-heading-small font-semibold text-gray-04">
-        새로운 메모를 작성해보세요!
-      </p>
+      <div className="flex min-h-[min(710px,calc(100dvh-238px))] flex-col items-center justify-center rounded-3xl border-2 border-dashed border-blue-02 px-6 py-12 text-center text-blue-02 max-sm:min-h-[420px]">
+        <div className="flex flex-col items-center gap-7">
+          <button
+            type="button"
+            onClick={onCreate}
+            aria-label="새 메모 작성"
+            className="flex size-[120px] items-center justify-center rounded-full bg-blue-02 max-sm:size-24"
+          >
+            <span
+              aria-hidden="true"
+              className="size-8 bg-gray-01 mask-contain mask-center mask-no-repeat"
+              style={{ maskImage: `url("${plusIcon}")`, WebkitMaskImage: `url("${plusIcon}")` }}
+            />
+          </button>
+          <h3 className="text-heading-medium font-semibold max-sm:text-heading-small">
+            새로운 메모를 작성해보세요!
+          </h3>
+        </div>
+      </div>
     );
   }
 

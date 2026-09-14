@@ -1,10 +1,11 @@
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import barIcon from '../../assets/icons/bar.svg';
 import deleteIcon from '../../assets/icons/delete.svg';
 import exitIcon from '../../assets/icons/exit.svg';
 import modifyIcon from '../../assets/icons/modify.svg';
 import { memoCategoryStyles } from '../../styles/memoCategoryStyles';
 import type { Memo } from '../../types/memo';
+import ActionModal from '../common/ActionModal';
 import IconButton from '../common/IconButton';
 import Modal from '../common/Modal';
 
@@ -12,10 +13,12 @@ type MemoDetailModalProps = {
   memo: Memo;
   onClose: () => void;
   onEdit: () => void;
+  onDelete: () => void;
 };
 
-function MemoDetailModal({ memo, onClose, onEdit }: MemoDetailModalProps) {
+function MemoDetailModal({ memo, onClose, onEdit, onDelete }: MemoDetailModalProps) {
   const titleId = useId();
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const category = memoCategoryStyles[memo.category];
 
   return (
@@ -59,9 +62,24 @@ function MemoDetailModal({ memo, onClose, onEdit }: MemoDetailModalProps) {
             onClick={onEdit}
             className="size-8 p-px"
           />
-          <IconButton label="메모 삭제" icon={deleteIcon} disabled className="size-8 p-px" />
+          <IconButton
+            label="메모 삭제"
+            icon={deleteIcon}
+            onClick={() => setIsDeleteConfirmOpen(true)}
+            className="size-8 p-px"
+          />
         </footer>
       </article>
+      {isDeleteConfirmOpen && (
+        <ActionModal
+          title="메모를 삭제 하시겠습니까?"
+          description="삭제된 메모는 휴지통에서 확인 가능합니다."
+          cancelLabel="취소"
+          confirmLabel="삭제"
+          onCancel={() => setIsDeleteConfirmOpen(false)}
+          onConfirm={onDelete}
+        />
+      )}
     </Modal>
   );
 }
