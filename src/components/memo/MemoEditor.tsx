@@ -1,0 +1,115 @@
+import { useId, useRef, useState, type FormEvent } from 'react';
+import backIcon from '../../assets/icons/back.svg';
+import barIcon from '../../assets/icons/bar.svg';
+import type { MemoCategory, MemoDraft } from '../../types/memo';
+import { getTodayDate } from '../../utils/getTodayDate';
+import Modal from '../common/Modal';
+import MemoCategorySelect from './MemoCategorySelect';
+
+type MemoEditorProps = {
+  onSave: (draft: MemoDraft) => void;
+  onCancel: () => void;
+};
+
+const editorColors = {
+  daily: 'bg-blue-04',
+  work: 'bg-blue-06',
+  others: 'bg-gray-02',
+};
+
+function MemoEditor({ onSave, onCancel }: MemoEditorProps) {
+  const headingId = useId();
+  const titleRef = useRef<HTMLInputElement>(null);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [category, setCategory] = useState<MemoCategory | ''>('');
+  const [date, setDate] = useState(getTodayDate);
+  const canSubmit = title.trim() !== '' && content.trim() !== '' && category !== '' && date !== '';
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!canSubmit || !category) return;
+    onSave({ title: title.trim(), content: content.trim(), category, date });
+  }
+
+  return (
+    <Modal
+      labelledBy={headingId}
+      initialFocusRef={titleRef}
+      onClose={onCancel}
+      className="h-dvh max-h-none w-full max-w-none overflow-y-auto bg-white-00 p-0"
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="relative mx-auto flex min-h-dvh w-full max-w-[1440px] flex-col items-center justify-center px-40 py-[82px] max-[900px]:px-8 max-sm:px-4 max-sm:pt-20 max-sm:pb-6"
+      >
+        <h2 id={headingId} className="sr-only">
+          메모 작성
+        </h2>
+        <button
+          type="button"
+          onClick={onCancel}
+          aria-label="메모 목록으로 돌아가기"
+          className="absolute top-[82px] left-40 flex size-8 items-center justify-center max-[900px]:left-8 max-sm:top-6 max-sm:left-4"
+        >
+          <img src={backIcon} alt="" className="h-7 w-[14px]" />
+        </button>
+        <section
+          aria-label="메모 입력"
+          className={`flex h-[clamp(420px,calc(100dvh-252px),600px)] w-full max-w-[600px] flex-col gap-8 rounded-3xl px-10 pt-11 pb-10 shadow-[0_4px_4px_rgb(0_0_0/25%)] max-sm:gap-6 max-sm:px-6 max-sm:pt-8 max-sm:pb-6 ${category ? `${editorColors[category]} text-white-00` : 'bg-blue-01 text-blue-04'}`}
+        >
+          <input
+            ref={titleRef}
+            aria-label="메모 제목"
+            required
+            maxLength={40}
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            placeholder="제목을 입력하세요..."
+            className="w-full min-w-0 bg-transparent text-heading-large font-bold placeholder:text-current placeholder:opacity-70 max-sm:text-heading-medium"
+          />
+          <div className="flex shrink-0 flex-wrap items-center gap-6 max-sm:gap-3">
+            <MemoCategorySelect value={category} onChange={setCategory} />
+            <img src={barIcon} alt="" className="h-[52px] w-[3px]" />
+            <input
+              aria-label="메모 날짜"
+              type="date"
+              required
+              min="0001-01-01"
+              max="9999-12-31"
+              value={date}
+              onChange={(event) => setDate(event.target.value)}
+              className="w-[152px] min-w-0 bg-transparent text-heading-small font-bold text-white-00 scheme-dark max-sm:w-[138px] max-sm:text-body-medium"
+            />
+          </div>
+          <textarea
+            aria-label="메모 본문"
+            required
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            placeholder="본문을 입력하세요..."
+            className="min-h-0 w-full flex-1 resize-none bg-transparent text-body-large font-medium placeholder:text-current placeholder:opacity-70 max-sm:text-body-medium"
+          />
+        </section>
+        <div className="mt-8 flex w-full max-w-[600px] gap-4 max-sm:gap-3">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="h-14 flex-1 rounded-[18px] bg-memo-star text-action-small font-bold text-gray-03"
+          >
+            작성 취소
+          </button>
+          <button
+            type="submit"
+            disabled={!canSubmit}
+            className="h-14 flex-1 rounded-[18px] bg-blue-05 text-action-small font-bold text-white-00 disabled:cursor-not-allowed disabled:bg-memo-daily"
+          >
+            작성 완료
+          </button>
+        </div>
+      </form>
+    </Modal>
+  );
+}
+
+export default MemoEditor;

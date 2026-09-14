@@ -53,6 +53,8 @@ react-memo-24th/
 │   │   │   └── Modal.tsx          # 모달 표시, 닫기 및 배경 스크롤 제어
 │   │   └── memo/
 │   │       ├── MemoCard.tsx       # 카테고리별 메모 카드 UI
+│   │       ├── MemoEditor.tsx     # 메모 입력 및 작성 폼 검증
+│   │       ├── MemoCategorySelect.tsx # 작성 메모의 필수 태그 선택
 │   │       ├── MemoDetailModal.tsx # 메모 상세 내용 및 작업 버튼
 │   │       ├── MemoList.tsx       # 메모 목록 및 빈 목록 안내
 │   │       ├── MemoToolbar.tsx    # 검색 영역과 상단 버튼 배치
@@ -68,6 +70,7 @@ react-memo-24th/
 │   ├── types/
 │   │   └── memo.ts                # 메모 및 카테고리 타입
 │   ├── utils/
+│   │   ├── getTodayDate.ts       # 로컬 시간 기준 오늘 날짜
 │   │   └── filterMemos.ts        # 검색어와 태그 조건으로 메모 필터링
 │   ├── App.tsx                    # 페이지 연결
 │   ├── index.css                  # Tailwind, 폰트 및 전역 스타일

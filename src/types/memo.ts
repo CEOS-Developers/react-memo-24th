@@ -8,3 +8,5 @@ export type Memo = {
   date: string;
   isPinned: boolean;
 };
+
+export type MemoDraft = Pick<Memo, 'title' | 'content' | 'category' | 'date'>;

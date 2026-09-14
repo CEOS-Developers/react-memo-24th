@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import MemoDetailModal from '../components/memo/MemoDetailModal';
+import MemoEditor from '../components/memo/MemoEditor';
 import MemoList from '../components/memo/MemoList';
 import MemoToolbar from '../components/memo/MemoToolbar';
 import { initialMemos } from '../data/memos';
-import type { Memo, MemoCategory } from '../types/memo';
+import type { Memo, MemoCategory, MemoDraft } from '../types/memo';
 import { filterMemos } from '../utils/filterMemos';
 
 function MemoPage() {
   const [memos, setMemos] = useState<Memo[]>(initialMemos);
+  const [isCreating, setIsCreating] = useState(false);
   const [selectedMemoId, setSelectedMemoId] = useState<Memo['id'] | null>(null);
   const selectedMemo = memos.find((memo) => memo.id === selectedMemoId);
   const [keyword, setKeyword] = useState('');
@@ -25,6 +27,14 @@ function MemoPage() {
     );
   }
 
+  function handleCreateMemo(draft: MemoDraft) {
+    const newMemo: Memo = { ...draft, id: crypto.randomUUID(), isPinned: false };
+    setMemos((previousMemos) => [newMemo, ...previousMemos]);
+    setKeyword('');
+    setCategory('');
+    setIsCreating(false);
+  }
+
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[1440px] flex-col gap-[52px] px-[clamp(32px,calc((100%_-_1200px)/2),120px)] pt-[72px] pb-14 max-[900px]:px-8 max-[900px]:pt-12 max-sm:gap-8 max-sm:px-4 max-sm:pt-6 max-sm:pb-8">
       <MemoToolbar
@@ -32,6 +42,7 @@ function MemoPage() {
         category={category}
         onKeywordChange={setKeyword}
         onCategoryChange={setCategory}
+        onCreate={() => setIsCreating(true)}
       />
       <section aria-labelledby="memo-list-title" className="flex w-full flex-1 flex-col gap-5">
         <h2 id="memo-list-title" className="sr-only">
@@ -68,6 +79,7 @@ function MemoPage() {
       {selectedMemo && (
         <MemoDetailModal memo={selectedMemo} onClose={() => setSelectedMemoId(null)} />
       )}
+      {isCreating && <MemoEditor onSave={handleCreateMemo} onCancel={() => setIsCreating(false)} />}
     </main>
   );
 }

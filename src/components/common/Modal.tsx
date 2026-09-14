@@ -1,13 +1,14 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
 
 type ModalProps = {
   children: ReactNode;
   labelledBy: string;
   className?: string;
+  initialFocusRef?: RefObject<HTMLElement | null>;
   onClose: () => void;
 };
 
-function Modal({ children, labelledBy, className = '', onClose }: ModalProps) {
+function Modal({ children, labelledBy, className = '', initialFocusRef, onClose }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -15,14 +16,19 @@ function Modal({ children, labelledBy, className = '', onClose }: ModalProps) {
     if (!dialog) return;
 
     const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement;
     dialog.showModal();
+    initialFocusRef?.current?.focus();
     document.body.style.overflow = 'hidden';
 
     return () => {
       dialog.close();
       document.body.style.overflow = previousOverflow;
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
+        previousFocus.focus({ preventScroll: true });
+      }
     };
-  }, []);
+  }, [initialFocusRef]);
 
   return (
     <dialog
