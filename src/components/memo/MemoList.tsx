@@ -7,6 +7,7 @@ type MemoListProps = {
   isFiltered?: boolean;
   label?: string;
   onTogglePin: (memoId: Memo['id']) => void;
+  onSelect: (memoId: Memo['id']) => void;
 };
 
 function MemoList({
@@ -14,6 +15,7 @@ function MemoList({
   isFiltered = false,
   label = '작성된 메모',
   onTogglePin,
+  onSelect,
 }: MemoListProps) {
   if (memos.length === 0) {
     if (isFiltered) {
@@ -47,7 +49,7 @@ function MemoList({
     <ul aria-label={label} className="flex flex-wrap gap-5">
       {memos.map((memo) => (
         <li key={memo.id} className="w-[285px] max-w-full">
-          <MemoCard memo={memo} onTogglePin={onTogglePin} />
+          <MemoCard memo={memo} onTogglePin={onTogglePin} onSelect={onSelect} />
         </li>
       ))}
     </ul>

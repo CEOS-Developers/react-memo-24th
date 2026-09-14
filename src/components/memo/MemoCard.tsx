@@ -1,35 +1,38 @@
 import starIcon from '../../assets/icons/star.svg';
+import { memoCategoryStyles } from '../../styles/memoCategoryStyles';
 import type { Memo } from '../../types/memo';
-
-const categoryStyles = {
-  daily: { label: 'Daily', card: 'bg-memo-daily', footer: 'text-blue-01' },
-  work: { label: 'Work', card: 'bg-blue-06', footer: 'text-white-00' },
-  others: { label: 'Others', card: 'bg-gray-02', footer: 'text-white-00' },
-};
 
 type MemoCardProps = {
   memo: Memo;
   onTogglePin: (memoId: Memo['id']) => void;
+  onSelect: (memoId: Memo['id']) => void;
 };
 
-function MemoCard({ memo, onTogglePin }: MemoCardProps) {
-  const category = categoryStyles[memo.category];
+function MemoCard({ memo, onTogglePin, onSelect }: MemoCardProps) {
+  const category = memoCategoryStyles[memo.category];
   const starMask = `url("${starIcon}")`;
 
   return (
     <article
-      className={`flex h-[285px] w-full flex-col gap-5 overflow-hidden rounded-[20px] pt-[25px] pr-[34px] pb-9 pl-[21px] text-white-00 ${category.card}`}
+      className={`relative flex h-[285px] w-full flex-col gap-5 overflow-hidden rounded-[20px] pt-[25px] pr-[34px] pb-9 pl-[21px] text-white-00 ${category.card}`}
     >
       <header className="flex shrink-0 items-center gap-3">
-        <h3 className="min-w-0 flex-1 truncate text-heading-small font-bold" title={memo.title}>
-          {memo.title}
+        <h3 className="min-w-0 flex-1 text-heading-small font-bold" title={memo.title}>
+          <button
+            type="button"
+            onClick={() => onSelect(memo.id)}
+            aria-haspopup="dialog"
+            className="block w-full text-left after:absolute after:inset-0 after:rounded-[20px]"
+          >
+            <span className="block truncate">{memo.title}</span>
+          </button>
         </h3>
         <button
           type="button"
           onClick={() => onTogglePin(memo.id)}
           aria-label={memo.isPinned ? '메모 고정 해제' : '메모 고정'}
           aria-pressed={memo.isPinned}
-          className="size-7 shrink-0"
+          className="relative z-10 size-7 shrink-0"
         >
           <span
             aria-hidden="true"

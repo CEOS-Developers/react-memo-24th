@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import MemoDetailModal from '../components/memo/MemoDetailModal';
 import MemoList from '../components/memo/MemoList';
 import MemoToolbar from '../components/memo/MemoToolbar';
 import { initialMemos } from '../data/memos';
@@ -7,6 +8,8 @@ import { filterMemos } from '../utils/filterMemos';
 
 function MemoPage() {
   const [memos, setMemos] = useState<Memo[]>(initialMemos);
+  const [selectedMemoId, setSelectedMemoId] = useState<Memo['id'] | null>(null);
+  const selectedMemo = memos.find((memo) => memo.id === selectedMemoId);
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState<MemoCategory | ''>('');
   const visibleMemos = filterMemos(memos, keyword, category);
@@ -38,19 +41,33 @@ function MemoPage() {
           {isFiltered ? `검색 결과 ${visibleMemos.length}개` : `전체 메모 ${visibleMemos.length}개`}
         </p>
         {pinnedMemos.length > 0 && (
-          <MemoList memos={pinnedMemos} label="고정된 메모" onTogglePin={handleTogglePin} />
+          <MemoList
+            memos={pinnedMemos}
+            label="고정된 메모"
+            onTogglePin={handleTogglePin}
+            onSelect={setSelectedMemoId}
+          />
         )}
         {unpinnedMemos.length > 0 && (
           <MemoList
             memos={unpinnedMemos}
             label="고정되지 않은 메모"
             onTogglePin={handleTogglePin}
+            onSelect={setSelectedMemoId}
           />
         )}
         {visibleMemos.length === 0 && (
-          <MemoList memos={visibleMemos} isFiltered={isFiltered} onTogglePin={handleTogglePin} />
+          <MemoList
+            memos={visibleMemos}
+            isFiltered={isFiltered}
+            onTogglePin={handleTogglePin}
+            onSelect={setSelectedMemoId}
+          />
         )}
       </section>
+      {selectedMemo && (
+        <MemoDetailModal memo={selectedMemo} onClose={() => setSelectedMemoId(null)} />
+      )}
     </main>
   );
 }
