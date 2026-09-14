@@ -9,9 +9,10 @@ const categoryStyles = {
 
 type MemoCardProps = {
   memo: Memo;
+  onTogglePin: (memoId: Memo['id']) => void;
 };
 
-function MemoCard({ memo }: MemoCardProps) {
+function MemoCard({ memo, onTogglePin }: MemoCardProps) {
   const category = categoryStyles[memo.category];
   const starMask = `url("${starIcon}")`;
 
@@ -25,7 +26,7 @@ function MemoCard({ memo }: MemoCardProps) {
         </h3>
         <button
           type="button"
-          disabled
+          onClick={() => onTogglePin(memo.id)}
           aria-label={memo.isPinned ? '메모 고정 해제' : '메모 고정'}
           aria-pressed={memo.isPinned}
           className="size-7 shrink-0"

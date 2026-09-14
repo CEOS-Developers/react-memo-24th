@@ -5,9 +5,16 @@ import MemoCard from './MemoCard';
 type MemoListProps = {
   memos: Memo[];
   isFiltered?: boolean;
+  label?: string;
+  onTogglePin: (memoId: Memo['id']) => void;
 };
 
-function MemoList({ memos, isFiltered = false }: MemoListProps) {
+function MemoList({
+  memos,
+  isFiltered = false,
+  label = '작성된 메모',
+  onTogglePin,
+}: MemoListProps) {
   if (memos.length === 0) {
     if (isFiltered) {
       return (
@@ -37,10 +44,10 @@ function MemoList({ memos, isFiltered = false }: MemoListProps) {
   }
 
   return (
-    <ul aria-label="작성된 메모" className="flex flex-wrap gap-5">
+    <ul aria-label={label} className="flex flex-wrap gap-5">
       {memos.map((memo) => (
         <li key={memo.id} className="w-[285px] max-w-full">
-          <MemoCard memo={memo} />
+          <MemoCard memo={memo} onTogglePin={onTogglePin} />
         </li>
       ))}
     </ul>
