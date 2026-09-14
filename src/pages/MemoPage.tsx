@@ -10,8 +10,10 @@ import { filterMemos } from '../utils/filterMemos';
 function MemoPage() {
   const [memos, setMemos] = useState<Memo[]>(initialMemos);
   const [isCreating, setIsCreating] = useState(false);
+  const [editingMemoId, setEditingMemoId] = useState<Memo['id'] | null>(null);
   const [selectedMemoId, setSelectedMemoId] = useState<Memo['id'] | null>(null);
   const selectedMemo = memos.find((memo) => memo.id === selectedMemoId);
+  const editingMemo = memos.find((memo) => memo.id === editingMemoId);
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState<MemoCategory | ''>('');
   const visibleMemos = filterMemos(memos, keyword, category);
@@ -33,6 +35,14 @@ function MemoPage() {
     setKeyword('');
     setCategory('');
     setIsCreating(false);
+  }
+
+  function handleUpdateMemo(draft: MemoDraft) {
+    if (!editingMemoId) return;
+    setMemos((previousMemos) =>
+      previousMemos.map((memo) => (memo.id === editingMemoId ? { ...memo, ...draft } : memo)),
+    );
+    setEditingMemoId(null);
   }
 
   return (
@@ -76,10 +86,21 @@ function MemoPage() {
           />
         )}
       </section>
-      {selectedMemo && (
-        <MemoDetailModal memo={selectedMemo} onClose={() => setSelectedMemoId(null)} />
+      {selectedMemo && !editingMemo && (
+        <MemoDetailModal
+          memo={selectedMemo}
+          onClose={() => setSelectedMemoId(null)}
+          onEdit={() => setEditingMemoId(selectedMemo.id)}
+        />
       )}
       {isCreating && <MemoEditor onSave={handleCreateMemo} onCancel={() => setIsCreating(false)} />}
+      {editingMemo && (
+        <MemoEditor
+          memo={editingMemo}
+          onSave={handleUpdateMemo}
+          onCancel={() => setEditingMemoId(null)}
+        />
+      )}
     </main>
   );
 }

@@ -27,7 +27,7 @@
 - [x] 메모 검색 및 태그 필터 구현
 - [x] 메모 고정 및 고정 목록 분리
 - [x] 메모 상세 조회 및 모달 구현
-- [ ] 메모 작성 및 수정 기능 구현
+- [x] 메모 작성 및 수정 기능 구현
 - [ ] 작성 취소 확인 및 완료 안내 구현
 - [ ] 메모 삭제 및 삭제 확인, 메모가 없는 화면 구현
 - [ ] localStorage를 통한 메모 저장 및 복원
@@ -53,8 +53,8 @@ react-memo-24th/
 │   │   │   └── Modal.tsx          # 모달 표시, 닫기 및 배경 스크롤 제어
 │   │   └── memo/
 │   │       ├── MemoCard.tsx       # 카테고리별 메모 카드 UI
-│   │       ├── MemoEditor.tsx     # 메모 입력 및 작성 폼 검증
-│   │       ├── MemoCategorySelect.tsx # 작성 메모의 필수 태그 선택
+│   │       ├── MemoEditor.tsx     # 메모 작성/수정 입력 및 폼 검증
+│   │       ├── MemoCategorySelect.tsx # 메모의 필수 태그 선택
 │   │       ├── MemoDetailModal.tsx # 메모 상세 내용 및 작업 버튼
 │   │       ├── MemoList.tsx       # 메모 목록 및 빈 목록 안내
 │   │       ├── MemoToolbar.tsx    # 검색 영역과 상단 버튼 배치
@@ -63,7 +63,7 @@ react-memo-24th/
 │   ├── data/
 │   │   └── memos.ts              # 샘플 데이터
 │   ├── pages/
-│   │   └── MemoPage.tsx            # 메모 상태 관리, 필터링 및 고정 목록 분리
+│   │   └── MemoPage.tsx            # 메모 상태 관리, 필터/고정/작성/수정 처리
 │   ├── styles/
 │   │   ├── memoCategoryStyles.ts  # 카드와 상세 모달의 카테고리별 스타일
 │   │   └── theme.css              # 색상 및 타이포그래피 토큰

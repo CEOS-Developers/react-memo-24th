@@ -1,12 +1,13 @@
 import { useId, useRef, useState, type FormEvent } from 'react';
 import backIcon from '../../assets/icons/back.svg';
 import barIcon from '../../assets/icons/bar.svg';
-import type { MemoCategory, MemoDraft } from '../../types/memo';
+import type { Memo, MemoCategory, MemoDraft } from '../../types/memo';
 import { getTodayDate } from '../../utils/getTodayDate';
 import Modal from '../common/Modal';
 import MemoCategorySelect from './MemoCategorySelect';
 
 type MemoEditorProps = {
+  memo?: Memo;
   onSave: (draft: MemoDraft) => void;
   onCancel: () => void;
 };
@@ -17,13 +18,14 @@ const editorColors = {
   others: 'bg-gray-02',
 };
 
-function MemoEditor({ onSave, onCancel }: MemoEditorProps) {
+function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
   const headingId = useId();
   const titleRef = useRef<HTMLInputElement>(null);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [category, setCategory] = useState<MemoCategory | ''>('');
-  const [date, setDate] = useState(getTodayDate);
+  const isEditing = memo !== undefined;
+  const [title, setTitle] = useState(memo?.title ?? '');
+  const [content, setContent] = useState(memo?.content ?? '');
+  const [category, setCategory] = useState<MemoCategory | ''>(memo?.category ?? '');
+  const [date, setDate] = useState(memo?.date ?? getTodayDate);
   const canSubmit = title.trim() !== '' && content.trim() !== '' && category !== '' && date !== '';
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -44,12 +46,12 @@ function MemoEditor({ onSave, onCancel }: MemoEditorProps) {
         className="relative mx-auto flex min-h-dvh w-full max-w-[1440px] flex-col items-center justify-center px-40 py-[82px] max-[900px]:px-8 max-sm:px-4 max-sm:pt-20 max-sm:pb-6"
       >
         <h2 id={headingId} className="sr-only">
-          메모 작성
+          {isEditing ? '메모 수정' : '메모 작성'}
         </h2>
         <button
           type="button"
           onClick={onCancel}
-          aria-label="메모 목록으로 돌아가기"
+          aria-label={isEditing ? '메모 상세로 돌아가기' : '메모 목록으로 돌아가기'}
           className="absolute top-[82px] left-40 flex size-8 items-center justify-center max-[900px]:left-8 max-sm:top-6 max-sm:left-4"
         >
           <img src={backIcon} alt="" className="h-7 w-[14px]" />
@@ -104,7 +106,7 @@ function MemoEditor({ onSave, onCancel }: MemoEditorProps) {
             disabled={!canSubmit}
             className="h-14 flex-1 rounded-[18px] bg-blue-05 text-action-small font-bold text-white-00 disabled:cursor-not-allowed disabled:bg-memo-daily"
           >
-            작성 완료
+            {isEditing ? '수정 완료' : '작성 완료'}
           </button>
         </div>
       </form>

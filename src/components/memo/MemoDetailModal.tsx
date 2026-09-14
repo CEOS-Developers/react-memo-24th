@@ -11,9 +11,10 @@ import Modal from '../common/Modal';
 type MemoDetailModalProps = {
   memo: Memo;
   onClose: () => void;
+  onEdit: () => void;
 };
 
-function MemoDetailModal({ memo, onClose }: MemoDetailModalProps) {
+function MemoDetailModal({ memo, onClose, onEdit }: MemoDetailModalProps) {
   const titleId = useId();
   const category = memoCategoryStyles[memo.category];
 
@@ -52,7 +53,12 @@ function MemoDetailModal({ memo, onClose }: MemoDetailModalProps) {
           {memo.content}
         </p>
         <footer className="flex shrink-0 justify-end gap-3 p-1">
-          <IconButton label="메모 수정" icon={modifyIcon} disabled className="size-8 p-px" />
+          <IconButton
+            label="메모 수정"
+            icon={modifyIcon}
+            onClick={onEdit}
+            className="size-8 p-px"
+          />
           <IconButton label="메모 삭제" icon={deleteIcon} disabled className="size-8 p-px" />
         </footer>
       </article>

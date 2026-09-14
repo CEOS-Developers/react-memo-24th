@@ -60,7 +60,7 @@ function MemoCategorySelect({ value, onChange }: MemoCategorySelectProps) {
       <div
         id={menuId}
         role="group"
-        aria-label="작성 메모 태그"
+        aria-label="메모 태그"
         hidden={!isOpen}
         className="absolute top-[calc(100%+8px)] left-0 z-10 flex w-[116px] flex-col gap-1 rounded-xl bg-white-00 p-2 shadow-lg"
       >
