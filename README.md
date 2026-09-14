@@ -30,7 +30,7 @@
 - [x] 메모 작성 및 수정 기능 구현
 - [x] 작성 취소 확인 및 완료 안내 구현
 - [x] 메모 삭제 및 삭제 확인, 메모가 없는 화면 구현
-- [ ] localStorage를 통한 메모 저장 및 복원
+- [x] localStorage를 통한 메모 저장 및 복원
 - [ ] 반응형 레이아웃 및 인터랙션 스타일 보완
 - [ ] 추가 기능 및 디자인 구현 (선택)
 
@@ -63,6 +63,8 @@ react-memo-24th/
 │   │       └── MemoTagFilter.tsx  # 태그 선택 및 메뉴 열림 상태
 │   ├── data/
 │   │   └── memos.ts              # 샘플 데이터
+│   ├── hooks/
+│   │   └── useStoredMemos.ts     # 메모 상태와 브라우저 저장 동기화
 │   ├── pages/
 │   │   └── MemoPage.tsx            # 메모 상태 관리, 조회/작성/수정/삭제 처리
 │   ├── styles/
@@ -72,6 +74,7 @@ react-memo-24th/
 │   │   └── memo.ts                # 메모 및 카테고리 타입
 │   ├── utils/
 │   │   ├── getTodayDate.ts       # 로컬 시간 기준 오늘 날짜
+│   │   ├── memoStorage.ts        # localStorage 저장, 복원 및 데이터 검증
 │   │   └── filterMemos.ts        # 검색어와 태그 조건으로 메모 필터링
 │   ├── App.tsx                    # 페이지 연결
 │   ├── index.css                  # Tailwind, 폰트 및 전역 스타일

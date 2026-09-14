@@ -4,12 +4,12 @@ import MemoDetailModal from '../components/memo/MemoDetailModal';
 import MemoEditor from '../components/memo/MemoEditor';
 import MemoList from '../components/memo/MemoList';
 import MemoToolbar from '../components/memo/MemoToolbar';
-import { initialMemos } from '../data/memos';
+import { useStoredMemos } from '../hooks/useStoredMemos';
 import type { Memo, MemoCategory, MemoDraft } from '../types/memo';
 import { filterMemos } from '../utils/filterMemos';
 
 function MemoPage() {
-  const [memos, setMemos] = useState<Memo[]>(initialMemos);
+  const [memos, setMemos] = useStoredMemos();
   const [isCreating, setIsCreating] = useState(false);
   const [editingMemoId, setEditingMemoId] = useState<Memo['id'] | null>(null);
   const [selectedMemoId, setSelectedMemoId] = useState<Memo['id'] | null>(null);
