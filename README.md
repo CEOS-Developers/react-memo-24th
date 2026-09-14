@@ -24,7 +24,7 @@
 - [x] 개발 환경 설정 (Vite, React, TypeScript, Tailwind CSS, ESLint, Prettier)
 - [x] Figma 기준 디자인 시스템 및 기본 레이아웃 구성
 - [x] 메모 목록 및 재사용 가능한 카드 컴포넌트 구현
-- [ ] 메모 검색 및 태그 필터 구현
+- [x] 메모 검색 및 태그 필터 구현
 - [ ] 메모 고정 및 고정 목록 분리
 - [ ] 메모 상세 조회 및 모달 구현
 - [ ] 메모 작성 및 수정 기능 구현
@@ -54,7 +54,8 @@ react-memo-24th/
 │   │       ├── MemoCard.tsx       # 카테고리별 메모 카드 UI
 │   │       ├── MemoList.tsx       # 메모 목록 및 빈 목록 안내
 │   │       ├── MemoToolbar.tsx    # 검색 영역과 상단 버튼 배치
-│   │       └── MemoSearchBar.tsx  # 메모 검색 및 태그 선택 UI
+│   │       ├── MemoSearchBar.tsx  # 검색어 입력 및 지우기
+│   │       └── MemoTagFilter.tsx  # 태그 선택 및 메뉴 열림 상태
 │   ├── data/
 │   │   └── memos.ts              # 샘플 데이터
 │   ├── pages/
@@ -63,6 +64,8 @@ react-memo-24th/
 │   │   └── theme.css              # 색상 및 타이포그래피 토큰
 │   ├── types/
 │   │   └── memo.ts                # 메모 및 카테고리 타입
+│   ├── utils/
+│   │   └── filterMemos.ts        # 검색어와 태그 조건으로 메모 필터링
 │   ├── App.tsx                    # 페이지 연결
 │   ├── index.css                  # Tailwind, 폰트 및 전역 스타일
 │   └── main.tsx                   # React 앱 진입점
