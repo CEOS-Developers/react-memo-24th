@@ -16,7 +16,6 @@
   }
 
   body {
-    min-width: 320px;
     min-height: 100dvh;
     font-family: var(--font-sans);
     color: var(--color-black-00);

@@ -1,7 +1,6 @@
 # React Memo
 
 1주차에 Vanilla JavaScript로 만든 메모 앱을 React로 옮기는 프로젝트입니다.
-(개발하면서 진행되는 구현에 맞춰 README를 업데이트하고 있습니다.)
 
 [1주차 Vanilla Memo](https://github.com/j2nooh/vanilla-memo-24th)
 [2주차 과제 안내](docs/assignment.md)
@@ -31,7 +30,7 @@
 - [x] 작성 취소 확인 및 완료 안내 구현
 - [x] 메모 삭제 및 삭제 확인, 메모가 없는 화면 구현
 - [x] localStorage를 통한 메모 저장 및 복원
-- [ ] 반응형 레이아웃 및 인터랙션 스타일 보완
+- [x] 반응형 레이아웃 및 인터랙션 스타일 보완
 - [ ] 추가 기능 및 디자인 구현 (선택)
 
 ## 파일 구조

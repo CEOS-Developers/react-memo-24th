@@ -11,7 +11,7 @@ function IconButton({ label, icon, className = '', type = 'button', ...props }: 
       {...props}
       type={type}
       aria-label={label}
-      className={`flex shrink-0 items-center justify-center rounded-full disabled:cursor-default ${className}`}
+      className={`flex shrink-0 items-center justify-center rounded-full transition-transform duration-150 hover:scale-105 active:scale-95 disabled:cursor-default disabled:hover:scale-100 ${className}`}
     >
       <img src={icon} alt="" aria-hidden="true" className="size-8" />
     </button>

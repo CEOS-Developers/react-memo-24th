@@ -91,7 +91,7 @@ function ActionModal({
               ref={cancelButtonRef}
               type="button"
               onClick={onCancel}
-              className="h-14 flex-1 rounded-xl bg-gray-01 px-6 text-action-small font-bold text-gray-03"
+              className="h-14 flex-1 rounded-xl bg-gray-01 px-6 text-action-small font-bold text-gray-03 transition-colors hover:bg-gray-02"
             >
               {cancelLabel}
             </button>
@@ -100,7 +100,7 @@ function ActionModal({
             ref={confirmButtonRef}
             type="button"
             onClick={onConfirm}
-            className="h-14 flex-1 rounded-xl bg-blue-05 px-6 text-action-small font-bold text-white-00"
+            className="h-14 flex-1 rounded-xl bg-blue-05 px-6 text-action-small font-bold text-white-00 transition-colors hover:bg-blue-06"
           >
             {confirmLabel}
           </button>

@@ -48,7 +48,7 @@ function MemoList({
             type="button"
             onClick={onCreate}
             aria-label="새 메모 작성"
-            className="flex size-[120px] items-center justify-center rounded-full bg-blue-02 max-sm:size-24"
+            className="flex size-[120px] items-center justify-center rounded-full bg-blue-02 transition-transform duration-150 hover:scale-105 active:scale-95 max-sm:size-24"
           >
             <span
               aria-hidden="true"

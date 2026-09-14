@@ -86,7 +86,11 @@ function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
           />
           <div className="flex shrink-0 flex-wrap items-center gap-6 max-sm:gap-3">
             <MemoCategorySelect value={category} onChange={setCategory} />
-            <img src={barIcon} alt="" className="h-[52px] w-[3px]" />
+            <img
+              src={barIcon}
+              alt=""
+              className="h-[52px] w-[3px] max-[360px]:hidden"
+            />
             <input
               aria-label="메모 날짜"
               type="date"
@@ -95,7 +99,7 @@ function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
               max="9999-12-31"
               value={date}
               onChange={(event) => setDate(event.target.value)}
-              className="w-[152px] min-w-0 bg-transparent text-heading-small font-bold text-white-00 scheme-dark max-sm:w-[138px] max-sm:text-body-medium"
+              className="w-[152px] min-w-0 bg-transparent text-heading-small font-bold text-white-00 scheme-dark max-sm:w-[138px] max-sm:text-body-medium max-[360px]:w-[112px] max-[360px]:text-body-small"
             />
           </div>
           <textarea
@@ -111,14 +115,14 @@ function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
           <button
             type="button"
             onClick={() => requestClose('cancel')}
-            className="h-14 flex-1 rounded-[18px] bg-memo-star text-action-small font-bold text-gray-03"
+            className="h-14 flex-1 rounded-[18px] bg-memo-star text-action-small font-bold text-gray-03 transition-colors hover:bg-gray-02"
           >
             작성 취소
           </button>
           <button
             type="submit"
             disabled={!canSubmit}
-            className="h-14 flex-1 rounded-[18px] bg-blue-05 text-action-small font-bold text-white-00 disabled:cursor-not-allowed disabled:bg-memo-daily"
+            className="h-14 flex-1 rounded-[18px] bg-blue-05 text-action-small font-bold text-white-00 transition-colors hover:bg-blue-06 disabled:cursor-not-allowed disabled:bg-memo-daily disabled:hover:bg-memo-daily"
           >
             {isEditing ? '수정 완료' : '작성 완료'}
           </button>

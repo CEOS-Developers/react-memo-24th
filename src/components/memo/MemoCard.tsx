@@ -14,7 +14,7 @@ function MemoCard({ memo, onTogglePin, onSelect }: MemoCardProps) {
 
   return (
     <article
-      className={`relative flex h-[285px] w-full flex-col gap-5 overflow-hidden rounded-[20px] pt-[25px] pr-[34px] pb-9 pl-[21px] text-white-00 ${category.card}`}
+      className={`relative flex h-[285px] w-full flex-col gap-5 overflow-hidden rounded-[20px] pt-[25px] pr-[34px] pb-9 pl-[21px] text-white-00 transition-transform duration-200 hover:-translate-y-1 ${category.card}`}
     >
       <header className="flex shrink-0 items-center gap-3">
         <h3 className="min-w-0 flex-1 text-heading-small font-bold" title={memo.title}>

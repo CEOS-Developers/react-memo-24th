@@ -57,7 +57,7 @@ function MemoTagFilter({ category, onCategoryChange }: MemoTagFilterProps) {
         aria-expanded={isOpen}
         aria-controls={menuId}
         onClick={() => setIsOpen((open) => !open)}
-        className={`flex h-9 w-[116px] items-center justify-center gap-2.5 rounded-full bg-blue-01 px-3 py-1.5 text-action-small font-extrabold ${selectedOption.color}`}
+        className={`flex h-9 w-[116px] items-center justify-center gap-2.5 rounded-full bg-blue-01 px-3 py-1.5 text-action-small font-extrabold transition-transform duration-150 active:scale-95 ${selectedOption.color}`}
       >
         {category ? (
           <>
@@ -88,7 +88,7 @@ function MemoTagFilter({ category, onCategoryChange }: MemoTagFilterProps) {
               setIsOpen(false);
               triggerRef.current?.focus();
             }}
-            className={`rounded-lg px-2 py-2 text-left text-body-medium text-blue-07 hover:bg-blue-01 ${category === option.value ? 'bg-blue-01 font-semibold' : ''}`}
+            className={`rounded-lg px-2 py-2 text-left text-body-medium text-blue-07 transition-colors hover:bg-blue-01 ${category === option.value ? 'bg-blue-01 font-semibold' : ''}`}
           >
             {option.label}
           </button>

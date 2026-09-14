@@ -51,7 +51,7 @@ function MemoCategorySelect({ value, onChange }: MemoCategorySelectProps) {
         aria-expanded={isOpen}
         aria-controls={menuId}
         onClick={() => setIsOpen((previous) => !previous)}
-        className={`flex h-9 w-[116px] items-center justify-center gap-2 rounded-full px-3 text-action-small font-extrabold ${selected ? `bg-white-00 ${selected.tag}` : 'bg-blue-02 text-blue-07'}`}
+        className={`flex h-9 w-[116px] items-center justify-center gap-2 rounded-full px-3 text-action-small font-extrabold transition-transform duration-150 active:scale-95 ${selected ? `bg-white-00 ${selected.tag}` : 'bg-blue-02 text-blue-07'}`}
       >
         {selected && <span aria-hidden="true" className="size-5 rounded-full bg-current" />}
         {selected?.label ?? '태그 선택'}
@@ -69,7 +69,7 @@ function MemoCategorySelect({ value, onChange }: MemoCategorySelectProps) {
             key={category}
             type="button"
             aria-pressed={category === value}
-            className="rounded-lg p-2 text-left text-body-medium text-blue-07 hover:bg-blue-01"
+            className="rounded-lg p-2 text-left text-body-medium text-blue-07 transition-colors hover:bg-blue-01"
             onClick={() => {
               onChange(category);
               setIsOpen(false);
