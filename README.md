@@ -4,7 +4,6 @@
 (개발하면서 진행되는 구현에 맞춰 README를 업데이트하고 있습니다.)
 
 [1주차 Vanilla Memo](https://github.com/j2nooh/vanilla-memo-24th)
-
 [2주차 과제 안내](docs/assignment.md)
 
 ## 사용한 기술 스택
@@ -23,7 +22,7 @@
 1주차 Memo 기능을 React로 전환하며, 상태 관리는 전역 상태관리 라이브러리 없이 React Hooks로 구현합니다.
 
 - [x] 개발 환경 설정 (Vite, React, TypeScript, Tailwind CSS, ESLint, Prettier)
-- [ ] Figma 기준 디자인 시스템 및 기본 레이아웃 구성
+- [x] Figma 기준 디자인 시스템 및 기본 레이아웃 구성
 - [ ] 메모 목록 및 재사용 가능한 카드 컴포넌트 구현
 - [ ] 메모 검색 및 태그 필터 구현
 - [ ] 메모 고정 및 고정 목록 분리
@@ -42,14 +41,25 @@
 ```text
 react-memo-24th/
 ├── docs/
-│   └── assignment.md    # 2주차 과제 안내
-├── public/              # 경로로 직접 제공하는 정적 파일
+│   └── assignment.md               # 2주차 과제 안내글
+├── public/                         # 경로로 직접 제공하는 정적 파일
 ├── src/
-│   ├── assets/          # 코드에서 불러오는 이미지 등 정적 파일
-│   ├── App.tsx          # 앱 화면 구성
-│   ├── App.css          # 앱 스타일
-│   ├── index.css        # Tailwind CSS 연결 및 전역 스타일
-│   └── main.tsx         # React 앱 진입점
+│   ├── assets/
+│   │   ├── fonts/                  # Pretendard 폰트
+│   │   └── icons/                  # SVG 아이콘
+│   ├── components/
+│   │   ├── common/
+│   │   │   └── IconButton.tsx     # 공용 아이콘 버튼 (공통 UI)
+│   │   └── memo/
+│   │       ├── MemoToolbar.tsx    # 검색 영역과 상단 버튼 배치 (기본 레이아웃)
+│   │       └── MemoSearchBar.tsx  # 메모 검색 및 태그 선택 UI (기본 레이아웃)
+│   ├── pages/
+│   │   └── MemoPage.tsx            # 메모 페이지 레이아웃
+│   ├── styles/
+│   │   └── theme.css              # 색상 및 타이포그래피 토큰
+│   ├── App.tsx                    # 페이지 연결
+│   ├── index.css                  # Tailwind, 폰트 및 전역 스타일
+│   └── main.tsx                   # React 앱 진입점
 ├── index.html           # React 앱을 표시할 HTML 문서
 ├── package.json         # 의존성 및 실행 명령
 ├── vite.config.ts       # Vite 및 플러그인 설정

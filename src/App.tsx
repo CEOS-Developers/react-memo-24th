@@ -1,11 +1,7 @@
-import './App.css';
+import MemoPage from './pages/MemoPage';
 
 function App() {
-  return (
-    <>
-      <h1>React Memo</h1>
-    </>
-  );
+  return <MemoPage />;
 }
 
 export default App;
