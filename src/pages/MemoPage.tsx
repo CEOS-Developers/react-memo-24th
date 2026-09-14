@@ -34,7 +34,6 @@ function MemoPage() {
     setMemos((previousMemos) => [newMemo, ...previousMemos]);
     setKeyword('');
     setCategory('');
-    setIsCreating(false);
   }
 
   function handleUpdateMemo(draft: MemoDraft) {

@@ -3,6 +3,7 @@ import backIcon from '../../assets/icons/back.svg';
 import barIcon from '../../assets/icons/bar.svg';
 import type { Memo, MemoCategory, MemoDraft } from '../../types/memo';
 import { getTodayDate } from '../../utils/getTodayDate';
+import ActionModal from '../common/ActionModal';
 import Modal from '../common/Modal';
 import MemoCategorySelect from './MemoCategorySelect';
 
@@ -18,6 +19,8 @@ const editorColors = {
   others: 'bg-gray-02',
 };
 
+type ExitAction = 'back' | 'cancel';
+
 function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
   const headingId = useId();
   const titleRef = useRef<HTMLInputElement>(null);
@@ -26,19 +29,30 @@ function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
   const [content, setContent] = useState(memo?.content ?? '');
   const [category, setCategory] = useState<MemoCategory | ''>(memo?.category ?? '');
   const [date, setDate] = useState(memo?.date ?? getTodayDate);
+  const [exitAction, setExitAction] = useState<ExitAction | null>(null);
+  const [isComplete, setIsComplete] = useState(false);
   const canSubmit = title.trim() !== '' && content.trim() !== '' && category !== '' && date !== '';
+
+  function requestClose(action: ExitAction) {
+    if (isEditing) {
+      onCancel();
+      return;
+    }
+    setExitAction(action);
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!canSubmit || !category) return;
     onSave({ title: title.trim(), content: content.trim(), category, date });
+    if (!isEditing) setIsComplete(true);
   }
 
   return (
     <Modal
       labelledBy={headingId}
       initialFocusRef={titleRef}
-      onClose={onCancel}
+      onClose={() => requestClose('back')}
       className="h-dvh max-h-none w-full max-w-none overflow-y-auto bg-white-00 p-0"
     >
       <form
@@ -50,7 +64,7 @@ function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
         </h2>
         <button
           type="button"
-          onClick={onCancel}
+          onClick={() => requestClose('back')}
           aria-label={isEditing ? '메모 상세로 돌아가기' : '메모 목록으로 돌아가기'}
           className="absolute top-[82px] left-40 flex size-8 items-center justify-center max-[900px]:left-8 max-sm:top-6 max-sm:left-4"
         >
@@ -96,7 +110,7 @@ function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
         <div className="mt-8 flex w-full max-w-[600px] gap-4 max-sm:gap-3">
           <button
             type="button"
-            onClick={onCancel}
+            onClick={() => requestClose('cancel')}
             className="h-14 flex-1 rounded-[18px] bg-memo-star text-action-small font-bold text-gray-03"
           >
             작성 취소
@@ -110,6 +124,26 @@ function MemoEditor({ memo, onSave, onCancel }: MemoEditorProps) {
           </button>
         </div>
       </form>
+      {exitAction && (
+        <ActionModal
+          title={
+            exitAction === 'back' ? '이전으로 돌아가시겠습니까?' : '메모 작성을 그만 두시겠습니까?'
+          }
+          description="작성중이던 메모는 저장되지 않습니다."
+          cancelLabel="계속 작성하기"
+          confirmLabel={exitAction === 'back' ? '돌아가기' : '작성 취소하기'}
+          onCancel={() => setExitAction(null)}
+          onConfirm={onCancel}
+        />
+      )}
+      {isComplete && (
+        <ActionModal
+          title="작성이 완료되었습니다"
+          description="메인 화면에서 작성한 메모를 확인할 수 있습니다."
+          confirmLabel="확인"
+          onConfirm={onCancel}
+        />
+      )}
     </Modal>
   );
 }

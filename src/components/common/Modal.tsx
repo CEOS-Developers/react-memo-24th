@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
+import { createPortal } from 'react-dom';
 
 type ModalProps = {
   children: ReactNode;
@@ -30,7 +31,7 @@ function Modal({ children, labelledBy, className = '', initialFocusRef, onClose 
     };
   }, [initialFocusRef]);
 
-  return (
+  return createPortal(
     <dialog
       ref={dialogRef}
       aria-labelledby={labelledBy}
@@ -53,7 +54,8 @@ function Modal({ children, labelledBy, className = '', initialFocusRef, onClose 
       }}
     >
       {children}
-    </dialog>
+    </dialog>,
+    document.body,
   );
 }
 
