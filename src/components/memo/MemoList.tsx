@@ -11,13 +11,19 @@ function MemoList({ memos, isFiltered = false }: MemoListProps) {
   if (memos.length === 0) {
     if (isFiltered) {
       return (
-        <div className="flex min-h-[420px] flex-col items-center justify-center gap-6 rounded-3xl border-2 border-dashed border-blue-07 px-6 py-12 text-center text-blue-07">
-          <img src={searchIcon} alt="" aria-hidden="true" className="size-20" />
-          <div className="flex flex-col gap-3">
-            <h3 className="text-heading-medium font-semibold max-sm:text-heading-small">
-              검색 결과가 없습니다
-            </h3>
-            <p className="text-body-medium">다른 검색어로 다시 시도해보세요</p>
+        <div className="flex min-h-[420px] flex-col items-center justify-center gap-5 rounded-3xl border-2 border-dashed border-blue-07 px-6 py-12 text-center text-blue-07">
+          <span
+            aria-hidden="true"
+            className="flex size-24 items-center justify-center rounded-full bg-blue-07"
+          >
+            <span
+              className="size-[38.911px] bg-blue-01 mask-contain mask-center mask-no-repeat"
+              style={{ maskImage: `url("${searchIcon}")`, WebkitMaskImage: `url("${searchIcon}")` }}
+            />
+          </span>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-body-small font-normal">검색 결과가 없습니다</h3>
+            <p className="text-body-small text-gray-03">다른 검색어로 다시 시도해보세요</p>
           </div>
         </div>
       );
