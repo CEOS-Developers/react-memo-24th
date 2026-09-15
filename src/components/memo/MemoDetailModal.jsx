@@ -9,11 +9,11 @@ function MemoDetailModal({ memo, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-10 flex items-center justify-center bg-blue-07/55 p-5"
+      className="fixed inset-0 z-10 flex items-center justify-center overflow-y-auto bg-blue-07/55 p-5"
       onClick={onClose}
     >
       <article
-        className={`relative flex h-[556px] w-full max-w-[556px] flex-col rounded-3xl p-10 text-white-00 ${
+        className={`relative flex min-h-[500px] w-full max-w-[556px] flex-col rounded-3xl p-6 text-white-00 sm:h-[556px] sm:p-10 ${
           tagColorClass[memo.tag]
         }`}
         onClick={(event) => event.stopPropagation()}
@@ -27,7 +27,7 @@ function MemoDetailModal({ memo, onClose }) {
           <img src={exitIcon} alt="" aria-hidden="true" className="size-8" />
         </button>
 
-        <h2 className="pr-10 text-heading-large font-extrabold">
+        <h2 className="pr-10 text-heading-medium font-extrabold sm:text-heading-large">
           {memo.title}
         </h2>
 

@@ -43,7 +43,7 @@ function App() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col gap-8 p-5 font-pretendard md:gap-[76px] md:px-[120px] md:py-[72px] ${
+      className={`flex min-h-screen flex-col gap-8 p-5 font-pretendard sm:p-8 lg:gap-[76px] lg:px-[120px] lg:py-[72px] ${
         isEditorOpen ? "bg-white-00" : "bg-blue-01"
       }`}
     >
