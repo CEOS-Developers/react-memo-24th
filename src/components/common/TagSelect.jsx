@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import iconDropdownArrow from "../../assets/icons/dropdown-arrow.svg";
 import { TAGS, TAG_STYLES } from "../../constants/tag";
-import TagChip from "../common/TagChip";
+import TagChip from "./TagChip";
 
-export default function TagFilter({ activeTag, onChange }) {
+export default function TagSelect({ value, onChange, includeAll = false }) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
 
@@ -39,8 +39,8 @@ export default function TagFilter({ activeTag, onChange }) {
         onClick={() => setOpen((prev) => !prev)}
         className="flex cursor-pointer"
       >
-        {activeTag ? (
-          <TagChip tag={activeTag} />
+        {value ? (
+          <TagChip tag={value} />
         ) : (
           <span className="inline-flex h-9 items-center gap-2 rounded-[36px] bg-blue-01 px-4 text-action-sm text-blue-07">
             태그 선택
@@ -58,23 +58,25 @@ export default function TagFilter({ activeTag, onChange }) {
           role="listbox"
           className="absolute top-[calc(100%+8px)] left-0 z-20 w-[150px] rounded-2xl bg-white-00 p-2 shadow-[0_12px_32px_rgba(0,27,81,0.18)]"
         >
-          <li>
-            <button
-              type="button"
-              onClick={() => selectTag(null)}
-              className="flex w-full cursor-pointer items-center rounded-xl px-3 py-2.5 text-action-sm text-blue-07 hover:bg-blue-01"
-            >
-              전체보기
-            </button>
-          </li>
+          {includeAll && (
+            <li>
+              <button
+                type="button"
+                onClick={() => selectTag(null)}
+                className="flex w-full cursor-pointer items-center rounded-xl px-3 py-2.5 text-action-sm text-blue-07 hover:bg-blue-01"
+              >
+                전체보기
+              </button>
+            </li>
+          )}
           {TAGS.map((tag) => (
             <li key={tag}>
               <button
                 type="button"
                 role="option"
-                aria-selected={activeTag === tag}
+                aria-selected={value === tag}
                 onClick={() => selectTag(tag)}
-                className={`flex w-full cursor-pointer items-center gap-2.5 rounded-xl px-3 py-2.5 text-action-sm text-blue-07 hover:bg-blue-01 ${activeTag === tag ? "bg-blue-01" : ""}`}
+                className={`flex w-full cursor-pointer items-center gap-2.5 rounded-xl px-3 py-2.5 text-action-sm text-blue-07 hover:bg-blue-01 ${value === tag ? "bg-blue-01" : ""}`}
               >
                 <img src={TAG_STYLES[tag].dot} alt="" className="size-3.5" />
                 {TAG_STYLES[tag].label}

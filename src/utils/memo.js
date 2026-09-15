@@ -12,6 +12,15 @@ export function partition(list, predicate) {
   return [matched, rest];
 }
 
+export function formatDate(date) {
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}.${pad(date.getMonth() + 1)}.${pad(date.getDate())}`;
+}
+
+export function generateId() {
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
 export function filterMemos(memos, keyword, tag) {
   const normalized = keyword.trim().toLowerCase();
   return memos.filter((memo) => {
