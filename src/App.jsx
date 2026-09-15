@@ -17,6 +17,14 @@ function App() {
     setIsEditorOpen(false);
   }
 
+  function handleTogglePin(memoId) {
+    setMemos((currentMemos) =>
+      currentMemos.map((memo) =>
+        memo.id === memoId ? { ...memo, isPinned: !memo.isPinned } : memo,
+      ),
+    );
+  }
+
   return (
     <main
       className={`min-h-screen p-5 font-pretendard ${
@@ -31,7 +39,7 @@ function App() {
       ) : memos.length === 0 ? (
         <EmptyState onOpenEditor={() => setIsEditorOpen(true)} />
       ) : (
-        <MemoList memos={memos} />
+        <MemoList memos={memos} onTogglePin={handleTogglePin} />
       )}
     </main>
   );
