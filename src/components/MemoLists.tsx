@@ -14,7 +14,9 @@ const MemoLists = ({ memos, totalCount, onCreateMemo }: MemoListsProps) => {
   return (
     <section
       aria-label="메모 목록"
-      className={`mt-8 w-full min-w-0 ${totalCount === 0 ? "flex flex-1 flex-col" : ""}`}
+      className={`mt-8 w-full min-w-0 ${
+        totalCount === 0 || memos.length === 0 ? "flex flex-1 flex-col" : ""
+      }`}
     >
       {totalCount === 0 ? (
         <div className="flex w-full flex-1 flex-col items-center justify-center rounded-[24px] border-2 border-dashed border-blue02">
@@ -31,11 +33,18 @@ const MemoLists = ({ memos, totalCount, onCreateMemo }: MemoListsProps) => {
           </p>
         </div>
       ) : memos.length === 0 ? (
-        <div id="search-empty-state" role="status">
-          <SearchIcon className="text-blue02" />
-          <div className="search-empty-text">
-            <p className="text-body-small">검색 결과가 없습니다</p>
-            <p className="text-body-small">다른 키워드로 검색해보세요</p>
+        <div
+          className="flex w-full flex-1 flex-col justify-center rounded-[24px] border-2 border-dashed border-blue07 items-center"
+          role="status"
+        >
+          <button className="flex justify-center items-center rounded-[48px] w-24 h-24 bg-blue07 cursor-pointer">
+            <SearchIcon className="text-blue01" />
+          </button>
+          <div className="flex flex-col gap-2 mt-5 items-center justify-center">
+            <p className="text-body-small text-blue07">검색 결과가 없습니다</p>
+            <p className="text-body-small text-gray03">
+              다른 키워드로 검색해보세요
+            </p>
           </div>
         </div>
       ) : (
