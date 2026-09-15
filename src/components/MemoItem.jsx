@@ -3,7 +3,7 @@ import { tags } from "../data/tags";
 export default function MemoItem({ memo, onTogglePin, onSelect }) {
   return (
     <li
-      className={`relative aspect-square w-full rounded-[20px] p-5 text-surface sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-60px)/4)] ${tags[memo.tag].cardClass}`}
+      className={`relative aspect-square w-full rounded-[20px] p-5 text-accent sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-60px)/4)] ${tags[memo.tag].cardClass}`}
     >
       <article className="flex h-full flex-col gap-3">
         <button

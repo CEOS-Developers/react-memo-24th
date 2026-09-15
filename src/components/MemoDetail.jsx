@@ -25,7 +25,7 @@ export default function MemoDetail({ memo, onClose, onSave }) {
         onClose();
       }}
       aria-labelledby="detail-title"
-      className={`fixed m-auto max-h-[calc(100vh-48px)] w-[560px] max-w-[calc(100vw-32px)] overflow-y-auto rounded-3xl p-6 text-surface shadow-md backdrop:bg-navy/50 sm:px-11 sm:py-10 ${tags[memo.tag].cardClass}`}
+      className={`fixed m-auto max-h-[calc(100vh-48px)] w-[560px] max-w-[calc(100vw-32px)] overflow-y-auto rounded-3xl p-6 text-accent shadow-md backdrop:bg-accent/25 sm:px-11 sm:py-10 ${tags[memo.tag].cardClass}`}
     >
       <article className="flex min-h-[480px] flex-col">
         <header className="flex items-center justify-between gap-5">
@@ -57,7 +57,7 @@ export default function MemoDetail({ memo, onClose, onSave }) {
           </span>
           <time
             dateTime={memo.date}
-            className="flex min-h-[52px] items-center border-l-[3px] border-surface pl-3 sm:pl-6"
+            className="flex min-h-[52px] items-center border-l-[3px] border-accent/20 pl-3 sm:pl-6"
           >
             {memo.date.replaceAll("-", ".")}
           </time>

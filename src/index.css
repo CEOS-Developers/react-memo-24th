@@ -12,21 +12,22 @@
   font-display: swap;
 }
 @theme {
-  --color-page: #e4edff;
-  --color-surface: #fafafa;
-  --color-navy: #001b51;
-  --color-muted: #a6bad2;
-  --color-soft: #a8c7ff;
-  --color-daily: #7ba3ff;
-  --color-work: #0037a3;
-  --color-others: #a6b9ca;
+  --color-page: #fff7fb;
+  --color-surface: #ffffff;
+  --color-accent: #713b55;
+  --color-muted: #9c6d83;
+  --color-soft: #ffb8d2;
+  --color-highlight: #fe71a5;
+  --color-daily: #ffdbe9;
+  --color-work: #ffb8d2;
+  --color-others: #ffe8f2;
   --font-sans: Pretendard, sans-serif;
 }
 @layer base {
   body {
     margin: 0;
     background: var(--color-page);
-    color: var(--color-navy);
+    color: var(--color-accent);
     font-family: var(--font-sans);
   }
   button:not(:disabled),
@@ -34,7 +35,7 @@
     cursor: pointer;
   }
   :focus-visible {
-    outline: 3px solid var(--color-navy);
+    outline: 3px solid var(--color-highlight);
     outline-offset: 3px;
   }
 }

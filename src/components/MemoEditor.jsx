@@ -19,7 +19,7 @@ export default function MemoEditor({ memo, onSave, onCancel }) {
           required
           value={title}
           onChange={(event) => setTitle(event.target.value)}
-          className="w-full rounded-xl bg-surface p-3 text-navy font-normal"
+          className="w-full rounded-xl bg-surface p-3 text-accent font-normal"
         />
       </label>
       <label className="flex flex-1 flex-col gap-2 font-bold">
@@ -29,21 +29,21 @@ export default function MemoEditor({ memo, onSave, onCancel }) {
           value={content}
           onChange={(event) => setContent(event.target.value)}
           rows={6}
-          className="w-full flex-1 resize-y rounded-xl bg-surface p-3 text-navy font-normal"
+          className="w-full flex-1 resize-y rounded-xl bg-surface p-3 text-accent font-normal"
         />
       </label>
       <div className="flex justify-end gap-3">
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-xl bg-page px-5 py-3 text-navy"
+          className="rounded-xl bg-page px-5 py-3 text-accent"
         >
           취소
         </button>
         <button
           type="submit"
           disabled={!title.trim() || !content.trim()}
-          className="rounded-xl bg-navy px-5 py-3 text-surface disabled:opacity-50"
+          className="rounded-xl bg-accent px-5 py-3 text-surface disabled:opacity-50"
         >
           저장
         </button>
