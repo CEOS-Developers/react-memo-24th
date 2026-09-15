@@ -2,6 +2,7 @@ import { useState } from 'react'
 import EmptyState from './components/EmptyState.jsx'
 import Header from './components/Header.jsx'
 import MemoList from './components/MemoList.jsx'
+import NoResultsState from './components/NoResultsState.jsx'
 import initialMemos from './data/initialMemos.js'
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
 
     return matchesCategory && matchesSearch
   })
+
+  const hasVisibleMemos = visibleMemos.length > 0
 
   const handleTogglePin = (memoId) => {
     setMemos((currentMemos) =>
@@ -57,13 +60,15 @@ function App() {
           onSearchTextChange={handleSearchTextChange}
         />
 
-        {hasMemos ? (
+        {!hasMemos ? (
+          <EmptyState />
+        ) : hasVisibleMemos ? (
           <MemoList
             memos={visibleMemos}
             onTogglePin={handleTogglePin}
           />
         ) : (
-          <EmptyState />
+          <NoResultsState />
         )}
       </div>
     </main>
