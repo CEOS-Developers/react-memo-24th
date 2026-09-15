@@ -3,7 +3,7 @@ import EmptyState from "./EmptyState";
 import MemoCard from "./MemoCard";
 import SearchEmpty from "./SearchEmpty";
 
-export default function MemoBoard({ memos, hasAnyMemo, onTogglePin }) {
+export default function MemoBoard({ memos, hasAnyMemo, onOpen, onTogglePin }) {
   if (memos.length === 0) {
     return hasAnyMemo ? <SearchEmpty /> : <EmptyState />;
   }
@@ -16,7 +16,7 @@ export default function MemoBoard({ memos, hasAnyMemo, onTogglePin }) {
       {groups.map((group) => (
         <div key={group[0].pinned ? "pinned" : "others"} className="flex flex-wrap gap-5">
           {group.map((memo) => (
-            <MemoCard key={memo.id} memo={memo} onTogglePin={onTogglePin} />
+            <MemoCard key={memo.id} memo={memo} onOpen={onOpen} onTogglePin={onTogglePin} />
           ))}
         </div>
       ))}
