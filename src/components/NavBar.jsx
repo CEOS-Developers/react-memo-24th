@@ -5,12 +5,20 @@ import Tag from '../assets/Tag.svg';
 import { useState } from 'react';
 import { TAG_COLORS } from '../constants/tagColors';
 
-function Navbar({ selectedTag, onTagChange }) {
+function Navbar({ selectedTag, onTagChange, onSearch }) {
+  // 태그 선택 상태
   const [isTagOpen, setIsTagOpen] = useState(false);
+  // 검색어 입력 상태
+  const [searchInput, setSearchInput] = useState('');
 
   const handleTagSelect = (tag) => {
     onTagChange(tag);
     setIsTagOpen(false);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    onSearch(searchInput);
   };
 
   return (
@@ -87,15 +95,22 @@ function Navbar({ selectedTag, onTagChange }) {
           )}
         </div>
 
-        <input
-          type="text"
-          placeholder="원하는 메모를 검색하세요"
-          className="min-w-0 flex-1 bg-transparent outline-none"
-        />
+        <form
+          onSubmit={handleSearch}
+          className="flex min-w-0 flex-1 items-center gap-[12px]"
+        >
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="원하는 메모를 검색하세요"
+            className="min-w-0 flex-1 bg-transparent outline-none"
+          />
 
-        <button className="shrink-0 cursor-pointer">
-          <img src={Search} alt="검색" />
-        </button>
+          <button type="submit" className="shrink-0 cursor-pointer">
+            <img src={Search} alt="검색" />
+          </button>
+        </form>
       </div>
 
       {/* 오른쪽 버튼 영역 */}
