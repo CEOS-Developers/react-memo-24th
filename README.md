@@ -7,7 +7,7 @@ CEOS 24기 프론트엔드 2주차 과제로 제작한 React 기반 메모 서�
 
 ## 배포
 
-- 배포 링크: 추후 추가 예정
+- 배포 링크: https://react-memo-24th-theta.vercel.app/
 
 ---
 
