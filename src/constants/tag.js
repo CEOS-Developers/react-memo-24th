@@ -4,7 +4,6 @@ import dotOthers from "../assets/icons/dot-others.svg";
 
 export const TAGS = ["daily", "work", "others"];
 
-// Tailwind는 `bg-${tag}`처럼 조합된 클래스를 빌드 때 찾지 못하므로 전체 클래스명을 그대로 적어둔다
 export const TAG_STYLES = {
   daily: {
     label: "Daily",
