@@ -2,6 +2,7 @@ import { useState } from "react";
 import EmptyState from "./components/feedback/EmptyState";
 import MemoEditor from "./components/memo/MemoEditor";
 import MemoList from "./components/memo/MemoList";
+import Header from "./components/layout/Header";
 
 function App() {
   const [memos, setMemos] = useState([]);
@@ -27,10 +28,12 @@ function App() {
 
   return (
     <main
-      className={`min-h-screen p-5 font-pretendard ${
+      className={`flex min-h-screen flex-col gap-8 p-5 font-pretendard md:gap-[76px] md:px-[120px] md:py-[72px] ${
         isEditorOpen ? "bg-white-00" : "bg-blue-01"
       }`}
     >
+      {!isEditorOpen && <Header onOpenEditor={() => setIsEditorOpen(true)} />}
+
       {isEditorOpen ? (
         <MemoEditor
           onCreateMemo={handleCreateMemo}
