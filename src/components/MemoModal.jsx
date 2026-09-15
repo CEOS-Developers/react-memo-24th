@@ -50,11 +50,19 @@ function MemoModal({ memo, onClose }) {
 
         {/* 수정 / 삭제 */}
         <div className="mt-auto flex justify-end gap-[12px]">
-          <button type="button" className="cursor-pointer">
+          <button
+            type="button"
+            className="cursor-pointer"
+            onClick={() => alert('수정 기능은 준비 중입니다.')}
+          >
             <img src={Edit} alt="메모 수정" className="h-[32px] w-[32px]" />
           </button>
 
-          <button type="button" className="cursor-pointer">
+          <button
+            type="button"
+            className="cursor-pointer"
+            onClick={() => alert('삭제 기능은 준비 중입니다.')}
+          >
             <img src={Trash} alt="메모 삭제" className="h-[32px] w-[32px]" />
           </button>
         </div>

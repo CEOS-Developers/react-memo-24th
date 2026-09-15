@@ -116,11 +116,17 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
       {/* 오른쪽 버튼 영역 */}
       <div className="flex gap-[10px]">
         {/* + 버튼 */}
-        <button className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]">
+        <button
+          className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]"
+          onClick={() => alert('메모 추가 기능은 준비 중입니다.')}
+        >
           <img src={Plus} alt="메모 추가" />
         </button>
         {/* 사람 버튼 */}
-        <button className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]">
+        <button
+          className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]"
+          onClick={() => alert('프로필 기능은 준비 중입니다.')}
+        >
           <img src={Profile} alt="프로필" />
         </button>
       </div>
