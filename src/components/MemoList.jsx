@@ -1,6 +1,20 @@
-import MemoItem from './MemoItem';
+import MemoItem from "./MemoItem";
 
 export default function MemoList({ title, memos, onTogglePin, onSelect }) {
   if (memos.length === 0) return null;
-  return <section aria-label={title}><h2 className="sr-only">{title}</h2><ul className="flex flex-wrap gap-5">{memos.map((memo) => <MemoItem key={memo.id} memo={memo} onTogglePin={onTogglePin} onSelect={onSelect} />)}</ul></section>;
+  return (
+    <section aria-label={title}>
+      <h2 className="sr-only">{title}</h2>
+      <ul className="flex flex-wrap gap-5">
+        {memos.map((memo) => (
+          <MemoItem
+            key={memo.id}
+            memo={memo}
+            onTogglePin={onTogglePin}
+            onSelect={onSelect}
+          />
+        ))}
+      </ul>
+    </section>
+  );
 }
