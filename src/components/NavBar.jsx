@@ -8,7 +8,7 @@ function Navbar() {
     <nav className="flex h-[80px] w-full items-center gap-[16px]">
       {/* 왼쪽 검색 영역 */}
       <div className="flex h-full flex-1 items-center gap-[12px] rounded-[28px] bg-[#FAFAFA] p-[16px]">
-        <button className="flex h-[48px] shrink-0 items-center gap-[8px] rounded-[36px] bg-[#E4EDFF] px-[16px]">
+        <button className="flex h-[48px] cursor-pointer shrink-0 items-center gap-[8px] rounded-[36px] bg-[#E4EDFF] px-[16px]">
           <span className=" text-[16px] leading-[24px] font-extrabold text-[#001B51]">
             태그 선택
           </span>
@@ -22,7 +22,7 @@ function Navbar() {
           className="min-w-0 flex-1 bg-transparent outline-none"
         />
 
-        <button className="shrink-0">
+        <button className="shrink-0 cursor-pointer">
           <img src={Search} alt="검색" />
         </button>
       </div>
@@ -30,11 +30,11 @@ function Navbar() {
       {/* 오른쪽 버튼 영역 */}
       <div className="flex gap-[10px]">
         {/* + 버튼 */}
-        <button className="flex h-[80px] w-[80px] items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]">
+        <button className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]">
           <img src={Plus} alt="메모 추가" />
         </button>
         {/* 사람 버튼 */}
-        <button className="flex h-[80px] w-[80px] items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]">
+        <button className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]">
           <img src={Profile} alt="프로필" />
         </button>
       </div>

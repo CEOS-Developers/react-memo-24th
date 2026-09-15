@@ -6,7 +6,7 @@ function EmptyMemo() {
       <div className="flex flex-col items-center gap-[28px]">
         <button
           type="button"
-          className="flex h-[120px] w-[120px] items-center justify-center rounded-[75px] bg-[#AAC8FF]"
+          className="flex h-[120px] w-[120px] cursor-pointer items-center justify-center rounded-[75px] bg-[#AAC8FF]"
           aria-label="새 메모 작성"
         >
           <img src={PlusWhite} alt="" />
