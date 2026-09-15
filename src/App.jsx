@@ -3,10 +3,13 @@ import EmptyState from "./components/feedback/EmptyState";
 import MemoEditor from "./components/memo/MemoEditor";
 import MemoList from "./components/memo/MemoList";
 import Header from "./components/layout/Header";
+import NoResultState from "./components/feedback/NoResultState";
 
 function App() {
   const [memos, setMemos] = useState([]);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedFilterTag, setSelectedFilterTag] = useState("");
 
   function handleCreateMemo(memoData) {
     const newMemo = {
@@ -26,13 +29,31 @@ function App() {
     );
   }
 
+  const filteredMemos = memos.filter((memo) => {
+    const normalizedKeyword = searchKeyword.trim().toLowerCase();
+
+    const matchesSearch = memo.title.toLowerCase().includes(normalizedKeyword);
+
+    const matchesTag = !selectedFilterTag || memo.tag === selectedFilterTag;
+
+    return matchesSearch && matchesTag;
+  });
+
   return (
     <main
       className={`flex min-h-screen flex-col gap-8 p-5 font-pretendard md:gap-[76px] md:px-[120px] md:py-[72px] ${
         isEditorOpen ? "bg-white-00" : "bg-blue-01"
       }`}
     >
-      {!isEditorOpen && <Header onOpenEditor={() => setIsEditorOpen(true)} />}
+      {!isEditorOpen && (
+        <Header
+          searchKeyword={searchKeyword}
+          selectedFilterTag={selectedFilterTag}
+          onSearchKeywordChange={setSearchKeyword}
+          onFilterTagChange={setSelectedFilterTag}
+          onOpenEditor={() => setIsEditorOpen(true)}
+        />
+      )}
 
       {isEditorOpen ? (
         <MemoEditor
@@ -41,8 +62,10 @@ function App() {
         />
       ) : memos.length === 0 ? (
         <EmptyState onOpenEditor={() => setIsEditorOpen(true)} />
+      ) : filteredMemos.length === 0 ? (
+        <NoResultState />
       ) : (
-        <MemoList memos={memos} onTogglePin={handleTogglePin} />
+        <MemoList memos={filteredMemos} onTogglePin={handleTogglePin} />
       )}
     </main>
   );
