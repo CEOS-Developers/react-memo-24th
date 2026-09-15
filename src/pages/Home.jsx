@@ -4,11 +4,16 @@ import MemoList from '../components/MemoList';
 // 목데이터로 확인
 import { MockDataMemo } from '../data/MockDataMemo';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Home = () => {
-  const [memos, setMemos] = useState(MockDataMemo);
-
+  const [memos, setMemos] = useState(() => {
+    const savedMemos = localStorage.getItem('memos');
+    return savedMemos ? JSON.parse(savedMemos) : MockDataMemo;
+  });
+  useEffect(() => {
+    localStorage.setItem('memos', JSON.stringify(memos));
+  }, [memos]);
   // 네브바의 태그 선택
   const [selectedTag, setSelectedTag] = useState('All');
   // 네브바의 검색어 입력
@@ -35,12 +40,9 @@ const Home = () => {
     );
   };
 
-  // 메모 정렬(중요한 메모가 위로 오도록)
-  // boolean 값을 숫자로 변환하면 true는 1, false는 0으로 변환되어 내림차순으로 정렬합니다
-  // 결국에는 1,1,1,0,0,0 이런식으로 정렬되어서 true가 위로 오게 됩니다.
-  const sortedMemos = [...filteredMemos].sort(
-    (a, b) => Number(b.isImportant) - Number(a.isImportant)
-  );
+  // 기존 정렬 방식이 O(n^2)에 가까운 방식이라 바꿈.
+  const importantMemos = filteredMemos.filter((memo) => memo.isImportant);
+  const normalMemos = filteredMemos.filter((memo) => !memo.isImportant);
 
   return (
     <main className="min-h-screen w-full bg-[#E4EDFF] px-[120px] pt-[72px] pb-[86px]">
@@ -51,15 +53,21 @@ const Home = () => {
           onTagChange={setSelectedTag}
           onSearch={setSearchQuery}
         />
-
         {/* Memo Content */}
         {memos.length === 0 ? (
           <EmptyMemo />
         ) : (
-          <MemoList
-            memos={sortedMemos}
-            onToggleImportant={handleToggleImportant}
-          />
+          <div className="flex flex-col gap-[20px]">
+            <MemoList
+              memos={importantMemos}
+              onToggleImportant={handleToggleImportant}
+            />
+
+            <MemoList
+              memos={normalMemos}
+              onToggleImportant={handleToggleImportant}
+            />
+          </div>
         )}
       </div>
     </main>
