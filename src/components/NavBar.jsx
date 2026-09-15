@@ -3,9 +3,15 @@ import Search from '../assets/Search.svg';
 import Profile from '../assets/Profile.svg';
 import Tag from '../assets/Tag.svg';
 import { useState } from 'react';
+import { TAG_COLORS } from '../constants/tagColors';
 
-function Navbar() {
+function Navbar({ selectedTag, onTagChange }) {
   const [isTagOpen, setIsTagOpen] = useState(false);
+
+  const handleTagSelect = (tag) => {
+    onTagChange(tag);
+    setIsTagOpen(false);
+  };
 
   return (
     <nav className="flex h-[80px] w-full items-center gap-[16px]">
@@ -13,31 +19,68 @@ function Navbar() {
       <div className="flex h-full flex-1 items-center gap-[12px] rounded-[28px] bg-[#FAFAFA] p-[16px]">
         <div className="relative shrink-0">
           <button
-            className="flex h-[48px] cursor-pointer shrink-0 items-center gap-[8px] rounded-[36px] bg-[#E4EDFF] px-[16px]"
+            className={`flex h-[48px] cursor-pointer shrink-0 items-center  rounded-[36px] bg-[#E4EDFF] ${
+              selectedTag === 'All'
+                ? 'gap-[8px] px-[16px]'
+                : 'gap-[12px] pr-[24px] pl-[12px]'
+            }`}
             onClick={() => setIsTagOpen(!isTagOpen)}
           >
-            <span className=" text-[16px] leading-[24px] font-extrabold text-[#001B51]">
-              태그 선택
-            </span>
+            {selectedTag === 'All' ? (
+              <>
+                <span className=" text-[16px] leading-[24px] font-extrabold text-[#001B51]">
+                  태그 선택
+                </span>
 
-            <img src={Tag} alt="" />
+                <img src={Tag} alt="" />
+              </>
+            ) : (
+              <>
+                <span
+                  className="h-[24px] w-[24px] shrink-0 rounded-full"
+                  style={{ backgroundColor: TAG_COLORS[selectedTag] }}
+                />
+
+                <span
+                  className="text-[16px] leading-[24px] font-extrabold"
+                  style={{ color: TAG_COLORS[selectedTag] }}
+                >
+                  {selectedTag}
+                </span>
+              </>
+            )}
           </button>
 
           {isTagOpen && (
             <div className="absolute top-0 left-full ml-[10px] flex w-[116px] flex-col overflow-hidden rounded-[16px] bg-[#E4EDFF] ">
-              <button className="cursor-pointer px-[16px] py-[12px] text-left">
+              <button
+                onClick={() => handleTagSelect('All')}
+                className="cursor-pointer px-[16px] py-[12px] text-left"
+              >
                 전체보기
               </button>
 
-              <button className="cursor-pointer px-[16px] py-[12px] text-left text-[#7BA7FF]">
+              <button
+                onClick={() => handleTagSelect('Daily')}
+                className="cursor-pointer px-[16px] py-[12px] text-left "
+                style={{ color: TAG_COLORS.Daily }}
+              >
                 Daily
               </button>
 
-              <button className="cursor-pointer px-[16px] py-[12px] text-left text-[#0037A3]">
+              <button
+                onClick={() => handleTagSelect('Work')}
+                className="cursor-pointer px-[16px] py-[12px] text-left "
+                style={{ color: TAG_COLORS.Work }}
+              >
                 Work
               </button>
 
-              <button className="cursor-pointer px-[16px] py-[12px] text-left text-[#A6B7CB]">
+              <button
+                onClick={() => handleTagSelect('Others')}
+                className="cursor-pointer px-[16px] py-[12px] text-left "
+                style={{ color: TAG_COLORS.Others }}
+              >
                 Others
               </button>
             </div>

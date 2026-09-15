@@ -1,17 +1,12 @@
 import Star from '../assets/Star.svg';
 import StarRed from '../assets/Star_red.svg';
-
-const tagColors = {
-  Daily: '#7BA7FF',
-  Work: '#0037A3',
-  Others: '#A6B7CB',
-};
+import { TAG_COLORS } from '../constants/tagColors';
 
 function Memo({ title, content, tag, date, isImportant }) {
   return (
     <article
       className="flex h-[285px] w-[285px] flex-col rounded-[20px] px-[20px] py-[12px] text-[#FAFAFA]"
-      style={{ backgroundColor: tagColors[tag] }}
+      style={{ backgroundColor: TAG_COLORS[tag] }}
     >
       <div className="flex items-start justify-between">
         <h2 className="text-[20px] leading-[28px] font-bold">{title}</h2>
