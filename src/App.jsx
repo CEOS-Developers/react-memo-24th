@@ -1,12 +1,21 @@
 import { useState } from "react";
 import EmptyState from "./components/feedback/EmptyState";
+import MemoEditor from "./components/memo/MemoEditor";
+import MemoList from "./components/memo/MemoList";
 
 function App() {
   const [memos, setMemos] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [selectedFilterTag, setSelectedFilterTag] = useState("");
   const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [selectedMemo, setSelectedMemo] = useState(null);
+
+  function handleCreateMemo(memoData) {
+    const newMemo = {
+      id: crypto.randomUUID(),
+      ...memoData,
+    };
+
+    setMemos((currentMemos) => [...currentMemos, newMemo]);
+    setIsEditorOpen(false);
+  }
 
   return (
     <main
@@ -15,9 +24,14 @@ function App() {
       }`}
     >
       {isEditorOpen ? (
-        <p className="text-center text-lg">메모 작성 화면 준비 중</p>
-      ) : (
+        <MemoEditor
+          onCreateMemo={handleCreateMemo}
+          onClose={() => setIsEditorOpen(false)}
+        />
+      ) : memos.length === 0 ? (
         <EmptyState onOpenEditor={() => setIsEditorOpen(true)} />
+      ) : (
+        <MemoList memos={memos} />
       )}
     </main>
   );
