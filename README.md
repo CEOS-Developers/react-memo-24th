@@ -1,100 +1,104 @@
-# 3주차 과제: React Memo - API 연동
-<br>
+# React Memo
 
-[2주차 README 백업](https://app.notion.com/p/README-3d325975dbba803c9d1efcf3358dd947?source=copy_link)
+1주차에 Vanilla JavaScript로 만든 메모 앱을 React로 옮기는 프로젝트입니다.
 
-필수 구현 사항과 Review Question은 이 링크에서 확인 부탁드립니다.
+[1주차 Vanilla Memo](https://github.com/j2nooh/vanilla-memo-24th)
+[2주차 과제 안내](docs/assignment.md)
 
-<br>
+## 사용한 기술 스택
 
-# 서론
+| 구분 | 기술 |
+| --- | --- |
+| UI 라이브러리 | React, React DOM |
+| 언어 | TypeScript |
+| 개발 서버 및 빌드 | Vite |
+| 스타일 | Tailwind CSS |
+| 코드 검사 | ESLint |
+| 코드 포맷 | Prettier |
 
-안녕하세요 🙌🏻 24기 프론트엔드 운영진 **이승연**입니다.
+## 구현 기능
 
-다들 2주차 미션인 React Memo를 만드시느라 수고 많으셨습니다! 지난 미션에서는 Vanilla JS로 구현했던 Memo 서비스를 React로 전환하면서, 컴포넌트 기반 개발 방식과 React Hooks를 활용한 상태 관리를 경험해보셨을 것이라 생각합니다.
+1주차 Memo 기능을 React로 전환하며, 상태 관리는 전역 상태관리 라이브러리 없이 React Hooks로 구현합니다.
 
-이번 미션은 2주차에 구현한 Memo 서비스에 **로그인과 회원가입 페이지를 추가하고, API를 연동하는 것**입니다❗️
+- [x] 개발 환경 설정 (Vite, React, TypeScript, Tailwind CSS, ESLint, Prettier)
+- [x] Figma 기준 디자인 시스템 및 기본 레이아웃 구성
+- [x] 메모 목록 및 재사용 가능한 카드 컴포넌트 구현
+- [x] 메모 검색 및 태그 필터 구현
+- [x] 메모 고정 및 고정 목록 분리
+- [x] 메모 상세 조회 및 모달 구현
+- [x] 메모 작성 및 수정 기능 구현
+- [x] 작성 취소 확인 및 완료 안내 구현
+- [x] 메모 삭제 및 삭제 확인, 메모가 없는 화면 구현
+- [x] localStorage를 통한 메모 저장 및 복원
+- [x] 반응형 레이아웃 및 인터랙션 스타일 보완
+- [x] 메모 앱 favicon 적용
+- [ ] 추가 기능 및 디자인 구현 (선택)
 
-이번 주차에는 서버와 데이터를 주고받으며 로그인과 회원가입이 어떻게 이루어지는지 살펴보게 됩니다. 사용자가 입력한 정보를 서버에 어떤 형태로 전달하는지, 서버의 응답에 따라 화면과 상태를 어떻게 변경해야 하는지 고민해보시기 바랍니다.
+## 파일 구조
 
-또한 이번 과제에서는 **Zustand와 TypeScript 사용이 필수입니다.** Zustand를 활용하면서 여러 컴포넌트에서 공유해야 하는 상태와 개별 컴포넌트에서 관리할 상태를 구분해보세요. TypeScript로 컴포넌트의 props와 API 요청·응답 데이터의 타입을 정의하며, 타입을 활용하는 개발 방식에도 익숙해져 보시면 좋겠습니다.
+레포 루트 기준의 주요 파일입니다.
 
-API 연동이 처음이라면 다소 낯설게 느껴질 수 있습니다. 제공된 API 명세를 꼼꼼히 읽고, 요청과 응답을 하나씩 확인하면서 진행해보세요. 여유가 있다면 메모 작성·수정·삭제 API 연동과 마이페이지 UI 구현에도 도전해보시기 바랍니다!
+```text
+react-memo-24th/
+├── docs/
+│   └── assignment.md               # 2주차 과제 안내글
+├── public/                         # 경로로 직접 제공하는 정적 파일
+├── src/
+│   ├── assets/
+│   │   ├── fonts/                  # Pretendard 폰트
+│   │   └── icons/                  # SVG 아이콘
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── ActionModal.tsx    # 확인 및 완료 안내 모달
+│   │   │   ├── IconButton.tsx     # 공용 아이콘 버튼 (공통 UI)
+│   │   │   └── Modal.tsx          # 모달 표시, 닫기 및 배경 스크롤 제어
+│   │   └── memo/
+│   │       ├── MemoCard.tsx       # 카테고리별 메모 카드 UI
+│   │       ├── MemoEditor.tsx     # 메모 작성/수정 입력 및 폼 검증
+│   │       ├── MemoCategorySelect.tsx # 메모의 필수 태그 선택
+│   │       ├── MemoDetailModal.tsx # 메모 상세 내용과 수정, 삭제 처리
+│   │       ├── MemoList.tsx       # 메모 목록 및 검색, 메모 빈 화면
+│   │       ├── MemoToolbar.tsx    # 검색 영역과 상단 버튼 배치
+│   │       ├── MemoSearchBar.tsx  # 검색어 입력 및 지우기
+│   │       └── MemoTagFilter.tsx  # 태그 선택 및 메뉴 열림 상태
+│   ├── data/
+│   │   └── memos.ts              # 샘플 데이터
+│   ├── hooks/
+│   │   └── useStoredMemos.ts     # 메모 상태와 브라우저 저장 동기화
+│   ├── pages/
+│   │   └── MemoPage.tsx            # 메모 상태 관리, 조회/작성/수정/삭제 처리
+│   ├── styles/
+│   │   ├── memoCategoryStyles.ts  # 카드와 상세 모달의 카테고리별 스타일
+│   │   └── theme.css              # 색상 및 타이포그래피 토큰
+│   ├── types/
+│   │   └── memo.ts                # 메모 및 카테고리 타입
+│   ├── utils/
+│   │   ├── getTodayDate.ts       # 로컬 시간 기준 오늘 날짜
+│   │   ├── memoStorage.ts        # localStorage 저장, 복원 및 데이터 검증
+│   │   └── filterMemos.ts        # 검색어와 태그 조건으로 메모 필터링
+│   ├── App.tsx                    # 페이지 연결
+│   ├── index.css                  # Tailwind, 폰트 및 전역 스타일
+│   └── main.tsx                   # React 앱 진입점
+├── index.html           # React 앱을 표시할 HTML 문서
+├── package.json         # 의존성 및 실행 명령
+├── vite.config.ts       # Vite 및 플러그인 설정
+└── eslint.config.js     # 코드 검사 규칙
+```
 
-과제를 진행하다가 막히는 부분이 있더라도, 우선은 스스로 공부하고 찾아보며 해결해보는 과정을 권장드립니다. 다만 미션과 관련해 운영진의 도움이 필요하다면, 언제든 프론트엔드 카카오톡방에 질문 남겨주세요!
+## 실행 방법
 
-<br>
+레포 루트에서 실행합니다.
 
-# 과제
+```bash
+npm ci
+npm run dev
+```
 
-## 🎯 목표
+실행 후 터미널에 표시된 로컬 주소로 접속합니다.
 
-- **API 명세**를 이해하고, 서버와 데이터를 주고받는 방법을 익힙니다.
-- 로그인과 회원가입을 구현하며 **인증의 기본적인 흐름**을 이해합니다.
-- API 요청의 로딩·성공·실패 **상태에 따른 UI 처리**를 고민합니다.
-- **Zustand**를 활용한 전역 상태 관리 방법을 익힙니다.
-- 컴포넌트의 **지역 상태와 전역 상태를 구분**하고 적절하게 관리합니다.
-- **TypeScript**를 활용하여 컴포넌트의 props와 API 요청·응답 데이터의 타입을 정의합니다.
-
-## 📅 기한
-
-- **2026년 9월 27일 일요일 14:00까지**
-
-## 💬 Review Questions
-
-- 로그인 또는 회원가입 API 요청의 **로딩·성공·실패 상태**에 따라 UI를 어떻게 처리했나요? 본인의 구현 사례를 바탕으로 설명해주세요. 아직 구현하지 않은 상태라면, 사용자 경험을 고려하여 어떻게 처리하면 좋을지 작성해주세요.
-- React의 `useState`와 Zustand는 상태 관리 방식에서 어떤 차이가 있나요? 이번 과제에서 전역으로 관리한 상태는 무엇이며, 그렇게 결정한 이유는 무엇인가요?
-- 이번 과제에서 **TypeScript를 활용하며 느낀 장점과 어려움**은 무엇인가요? 컴포넌트의 props나 API 요청·응답에 타입을 정의한 사례를 바탕으로 설명해주세요.
-
-## 💡 필수 요건
-
-- 2주차에 React로 구현했던 **Memo 서비스를 기반으로 진행**합니다.
-- 피그마에 제공된 UI를 기준으로 **로그인 페이지를 구현하고, 로그인 API를 연동**합니다.
-- 피그마에 제공된 UI를 기준으로 **회원가입 페이지를 구현하고, 회원가입 API를 연동**합니다.
-- **Zustand를 사용하여 전역 상태를 관리**합니다.
-- **TypeScript를 사용하여 프로젝트를 진행**합니다.
-
-  ### 🗂️ API 연동 관련 자료
-  [API 명세서](https://app.notion.com/p/API-3da25975dbba80e48b96c4aaf56f8cb5?source=copy_link) <br>
-  [Swagger 링크](https://3-37-186-61.nip.io/swagger-ui/index.html#/)
-
-<br>
-
-## ✅ 선택 요건
-
-- 메모 **작성·수정·삭제 API를 연동**합니다.
-- 추가 페이지인 **마이페이지 UI를 구현**합니다.
-
-<br>
-
-# 링크 및 참고자료
-
-## HTTP와 API 연동
-
-- [MDN — HTTP 요청 메서드](https://developer.mozilla.org/ko/docs/Web/HTTP/Reference/Methods)
-- [MDN — HTTP 상태 코드](https://developer.mozilla.org/ko/docs/Web/HTTP/Reference/Status)
-- [MDN — async function](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function)
-- [모던 JavaScript 튜토리얼 — fetch](https://ko.javascript.info/fetch)
-- [MDN — Fetch API 사용하기](https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch)
-
-## React의 폼과 상태 관리
-
-- [React — State를 사용해 Input 다루기](https://ko.react.dev/learn/reacting-to-input-with-state)
-- [React — 컴포넌트 간 State 공유하기](https://ko.react.dev/learn/sharing-state-between-components)
-
-## Zustand
-
-- [Zustand — 시작하기 (영문)](https://zustand.docs.pmnd.rs/learn/getting-started/introduction)
-- [Zustand — TypeScript 기초 가이드 (영문)](https://zustand.docs.pmnd.rs/learn/guides/beginner-typescript.html)
-
-## TypeScript
-
-- [TypeScript — JavaScript 개발자를 위한 TypeScript](https://www.typescriptlang.org/ko/docs/handbook/typescript-in-5-minutes.html)
-- [TypeScript — 기본 타입과 타입 정의](https://www.typescriptlang.org/ko/docs/handbook/2/everyday-types.html)
-- [React — TypeScript 사용하기](https://ko.react.dev/learn/typescript)
-- [ts 절대경로 설정하기](https://tesseractjh.tistory.com/232)
-- [리액트 프로젝트에서 타입스크립트 사용하기(시리즈)](https://velog.io/@velopert/series/react-with-typescript)
-
-## Network 탭에서 실제 요청과 응답을 확인하는 방법 (참고용)
-
-- [Chrome DevTools — 네트워크 활동 검사](https://developer.chrome.com/docs/devtools/network?hl=ko)
+| 명령 | 용도 |
+| --- | --- |
+| `npm run build` | 타입 검사 및 배포용 빌드 |
+| `npm run lint` | 코드 규칙 검사 |
+| `npm run format` | 코드 포맷 적용 |
+| `npm run format:check` | 코드 포맷 검사 |
