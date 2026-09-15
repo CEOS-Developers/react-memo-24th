@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import type { MouseEvent } from "react";
 import type { Memo } from "../types/memos";
 import { MEMO_COLORS, TAG_COLORS } from "../constants/tags";
 import ExitIcon from "./icons/ExitIcon";
@@ -12,6 +13,19 @@ type MemoModalProps = {
 
 export default function MemoModal({ memo, onClose }: MemoModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const clickOutside = (e: MouseEvent<HTMLDialogElement>) => {
+    if (e.target !== e.currentTarget) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const isOutside =
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom;
+
+    if (isOutside) onClose();
+  };
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -35,6 +49,7 @@ export default function MemoModal({ memo, onClose }: MemoModalProps) {
         event.preventDefault();
         onClose();
       }}
+      onClick={clickOutside}
     >
       <form
         id="memo-form"
