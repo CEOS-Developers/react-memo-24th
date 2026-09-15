@@ -1,11 +1,20 @@
-import searchIcon from "../assets/search.svg";
-import IconButton from "./IconButton.jsx";
-import TagFilter from "./TagFilter.jsx";
+import searchIcon from '../assets/search.svg'
+import IconButton from './IconButton.jsx'
+import TagFilter from './TagFilter.jsx'
 
-function SearchBar({ selectedCategory, onSelectCategory }) {
+function SearchBar({
+  selectedCategory,
+  onSelectCategory,
+  searchText,
+  onSearchTextChange,
+}) {
   const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
+
+  const handleInputChange = (event) => {
+    onSearchTextChange(event.target.value)
+  }
 
   return (
     <form
@@ -22,6 +31,8 @@ function SearchBar({ selectedCategory, onSelectCategory }) {
         type="search"
         placeholder="원하는 메모를 검색하세요"
         aria-label="메모 검색어"
+        value={searchText}
+        onChange={handleInputChange}
       />
 
       <IconButton
@@ -31,7 +42,7 @@ function SearchBar({ selectedCategory, onSelectCategory }) {
         className="h-12 w-12 shrink-0 hover:bg-blue-01 [&_img]:h-9.75 [&_img]:w-9.75"
       />
     </form>
-  );
+  )
 }
 
-export default SearchBar;
+export default SearchBar

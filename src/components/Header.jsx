@@ -3,12 +3,19 @@ import profileIcon from '../assets/profile.svg'
 import IconButton from './IconButton.jsx'
 import SearchBar from './SearchBar.jsx'
 
-function Header({ selectedCategory, onSelectCategory }) {
+function Header({
+  selectedCategory,
+  onSelectCategory,
+  searchText,
+  onSearchTextChange,
+}) {
   return (
     <header className="flex w-full items-center gap-4">
       <SearchBar
         selectedCategory={selectedCategory}
         onSelectCategory={onSelectCategory}
+        searchText={searchText}
+        onSearchTextChange={onSearchTextChange}
       />
 
       <div className="flex shrink-0 gap-4">

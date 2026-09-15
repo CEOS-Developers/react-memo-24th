@@ -6,14 +6,24 @@ import initialMemos from './data/initialMemos.js'
 
 function App() {
   const [memos, setMemos] = useState(initialMemos)
-  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [selectedCategory, setSelectedCategory] =
+    useState('All')
+  const [searchText, setSearchText] = useState('')
 
   const hasMemos = memos.length > 0
+  const keyword = searchText.trim().toLowerCase()
 
-  const visibleMemos =
-    selectedCategory === 'All'
-      ? memos
-      : memos.filter((memo) => memo.category === selectedCategory)
+  const visibleMemos = memos.filter((memo) => {
+    const matchesCategory =
+      selectedCategory === 'All' ||
+      memo.category === selectedCategory
+
+    const matchesSearch =
+      memo.title.toLowerCase().includes(keyword) ||
+      memo.content.toLowerCase().includes(keyword)
+
+    return matchesCategory && matchesSearch
+  })
 
   const handleTogglePin = (memoId) => {
     setMemos((currentMemos) =>
@@ -29,6 +39,10 @@ function App() {
     setSelectedCategory(category)
   }
 
+  const handleSearchTextChange = (value) => {
+    setSearchText(value)
+  }
+
   return (
     <main className="min-h-screen bg-blue-01 px-6 py-[72px] font-sans">
       <div
@@ -39,6 +53,8 @@ function App() {
         <Header
           selectedCategory={selectedCategory}
           onSelectCategory={handleSelectCategory}
+          searchText={searchText}
+          onSearchTextChange={handleSearchTextChange}
         />
 
         {hasMemos ? (
