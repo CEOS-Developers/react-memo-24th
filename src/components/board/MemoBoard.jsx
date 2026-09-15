@@ -1,10 +1,11 @@
 import { sortByNewest } from "../../utils/memo";
 import EmptyState from "./EmptyState";
 import MemoCard from "./MemoCard";
+import SearchEmpty from "./SearchEmpty";
 
-export default function MemoBoard({ memos }) {
+export default function MemoBoard({ memos, hasAnyMemo }) {
   if (memos.length === 0) {
-    return <EmptyState />;
+    return hasAnyMemo ? <SearchEmpty /> : <EmptyState />;
   }
 
   return (
