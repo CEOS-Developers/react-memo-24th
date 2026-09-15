@@ -9,7 +9,11 @@ function App() {
   const [selectedMemo, setSelectedMemo] = useState(null);
 
   return (
-    <main className="min-h-screen bg-[#e4edff] p-5 font-pretendard">
+    <main
+      className={`min-h-screen p-5 font-pretendard ${
+        isEditorOpen ? "bg-white-00" : "bg-blue-01"
+      }`}
+    >
       {isEditorOpen ? (
         <p className="text-center text-lg">메모 작성 화면 준비 중</p>
       ) : (
