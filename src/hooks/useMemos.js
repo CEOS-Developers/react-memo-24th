@@ -57,5 +57,9 @@ export function useMemos() {
     );
   };
 
-  return { memos, addMemo, updateMemo, togglePin };
+  const deleteMemo = (id) => {
+    setMemos((prev) => prev.filter((memo) => memo.id !== id));
+  };
+
+  return { memos, addMemo, updateMemo, deleteMemo, togglePin };
 }

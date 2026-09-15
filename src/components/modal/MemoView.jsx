@@ -5,7 +5,7 @@ import { TAG_STYLES } from "../../constants/tag";
 import IconButton from "../common/IconButton";
 import MemoMeta from "./MemoMeta";
 
-export default function MemoView({ memo, onClose, onEdit }) {
+export default function MemoView({ memo, onClose, onEdit, onDelete }) {
   return (
     <section
       className={`flex max-h-[90vh] w-full max-w-[556px] flex-col gap-8 overflow-y-auto rounded-3xl px-11 py-10 text-white-00 shadow-[0_4px_24px_rgba(0,0,0,0.25)] ${TAG_STYLES[memo.tag].bg}`}
@@ -20,7 +20,7 @@ export default function MemoView({ memo, onClose, onEdit }) {
       <p className="whitespace-pre-wrap break-words text-body-lg">{memo.content}</p>
       <div className="flex justify-end gap-3">
         <IconButton icon={iconEdit} label="수정" onClick={onEdit} />
-        <IconButton icon={iconTrash} label="삭제" />
+        <IconButton icon={iconTrash} label="삭제" onClick={onDelete} />
       </div>
     </section>
   );

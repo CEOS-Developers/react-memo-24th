@@ -8,7 +8,7 @@ import { useMemos } from "./hooks/useMemos";
 import { filterMemos } from "./utils/memo";
 
 export default function App() {
-  const { memos, addMemo, updateMemo, togglePin } = useMemos();
+  const { memos, addMemo, updateMemo, deleteMemo, togglePin } = useMemos();
   const [keyword, setKeyword] = useState("");
   const [activeTag, setActiveTag] = useState(null);
   const [selectedMemoId, setSelectedMemoId] = useState(null);
@@ -22,6 +22,12 @@ export default function App() {
 
   const selectedMemo = memos.find((memo) => memo.id === selectedMemoId);
   const closeModal = () => setSelectedMemoId(null);
+
+  const handleDelete = () => {
+    if (!window.confirm("이 메모를 삭제할까요?")) return;
+    deleteMemo(selectedMemoId);
+    closeModal();
+  };
 
   if (editor) {
     const editingMemo = memos.find((memo) => memo.id === editor.memoId);
@@ -67,6 +73,7 @@ export default function App() {
               closeModal();
               setEditor({ memoId: selectedMemo.id });
             }}
+            onDelete={handleDelete}
           />
         </Modal>
       )}
