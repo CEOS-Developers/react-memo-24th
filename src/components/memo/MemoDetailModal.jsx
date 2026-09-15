@@ -1,4 +1,6 @@
 import exitIcon from "../../assets/icons/Exit.svg";
+import modifyIcon from "../../assets/icons/modify.svg";
+import trashIcon from "../../assets/icons/Trash.svg";
 
 function MemoDetailModal({ memo, onClose }) {
   const tagColorClass = {
@@ -44,6 +46,30 @@ function MemoDetailModal({ memo, onClose }) {
         <p className="mt-8 whitespace-pre-wrap break-words text-body-large">
           {memo.content}
         </p>
+
+        <div className="absolute bottom-6 right-6 flex items-center gap-5 sm:bottom-[35px] sm:right-[45px]">
+          <button
+            type="button"
+            aria-label="메모 수정"
+            className="flex size-7 items-center justify-center"
+          >
+            <img
+              src={modifyIcon}
+              alt=""
+              aria-hidden="true"
+              className="size-[27px]"
+            />
+          </button>
+
+          <button type="button" aria-label="메모 삭제" className="size-[32px]">
+            <img
+              src={trashIcon}
+              alt=""
+              aria-hidden="true"
+              className="size-[32px]"
+            />
+          </button>
+        </div>
       </article>
     </div>
   );
