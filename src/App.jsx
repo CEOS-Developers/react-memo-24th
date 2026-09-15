@@ -9,7 +9,8 @@ export default function App() {
   const [memos, setMemos] = useState(sampleMemos);
   const [searchText, setSearchText] = useState("");
   const [selectedTag, setSelectedTag] = useState("all");
-  const [selectedMemo, setSelectedMemo] = useState(null);
+  const [selectedMemoId, setSelectedMemoId] = useState(null);
+  const selectedMemo = memos.find((memo) => memo.id === selectedMemoId);
 
   const visibleMemos = memos.filter((memo) => {
     const matchesTag = selectedTag === "all" || memo.tag === selectedTag;
@@ -25,6 +26,14 @@ export default function App() {
     setMemos((previousMemos) =>
       previousMemos.map((memo) =>
         memo.id === memoId ? { ...memo, isPinned: !memo.isPinned } : memo,
+      ),
+    );
+  }
+
+  function saveMemo(updatedMemo) {
+    setMemos((previousMemos) =>
+      previousMemos.map((memo) =>
+        memo.id === updatedMemo.id ? updatedMemo : memo,
       ),
     );
   }
@@ -48,19 +57,23 @@ export default function App() {
               title="고정된 메모"
               memos={pinnedMemos}
               onTogglePin={togglePin}
-              onSelect={setSelectedMemo}
+              onSelect={(memo) => setSelectedMemoId(memo.id)}
             />
             <MemoList
               title="일반 메모"
               memos={regularMemos}
               onTogglePin={togglePin}
-              onSelect={setSelectedMemo}
+              onSelect={(memo) => setSelectedMemoId(memo.id)}
             />
           </>
         )}
       </main>
       {selectedMemo && (
-        <MemoDetail memo={selectedMemo} onClose={() => setSelectedMemo(null)} />
+        <MemoDetail
+          memo={selectedMemo}
+          onSave={saveMemo}
+          onClose={() => setSelectedMemoId(null)}
+        />
       )}
     </div>
   );

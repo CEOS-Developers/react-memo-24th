@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import MemoEditor from "./MemoEditor";
 import { tags } from "../data/tags";
 
-export default function MemoDetail({ memo, onClose }) {
+export default function MemoDetail({ memo, onClose, onSave }) {
+  const [isEditing, setIsEditing] = useState(false);
   const dialogRef = useRef(null);
 
   useEffect(() => {
@@ -60,17 +62,40 @@ export default function MemoDetail({ memo, onClose }) {
             {memo.date.replaceAll("-", ".")}
           </time>
         </div>
-        <p className="whitespace-pre-wrap text-lg leading-relaxed break-words">
-          {memo.content}
-        </p>
-        <footer className="mt-auto flex justify-end gap-4 pt-8">
-          <button disabled aria-label="메모 수정">
-            <img src="/assets/icons/edit.svg" alt="" width="27" height="27" />
-          </button>
-          <button disabled aria-label="메모 삭제">
-            <img src="/assets/icons/trash.svg" alt="" width="24" height="24" />
-          </button>
-        </footer>
+        {isEditing ? (
+          <MemoEditor
+            memo={memo}
+            onSave={(updatedMemo) => {
+              onSave(updatedMemo);
+              setIsEditing(false);
+            }}
+            onCancel={() => setIsEditing(false)}
+          />
+        ) : (
+          <>
+            <p className="whitespace-pre-wrap text-lg leading-relaxed break-words">
+              {memo.content}
+            </p>
+            <footer className="mt-auto flex justify-end gap-4 pt-8">
+              <button onClick={() => setIsEditing(true)} aria-label="메모 수정">
+                <img
+                  src="/assets/icons/edit.svg"
+                  alt=""
+                  width="27"
+                  height="27"
+                />
+              </button>
+              <button disabled aria-label="메모 삭제">
+                <img
+                  src="/assets/icons/trash.svg"
+                  alt=""
+                  width="24"
+                  height="24"
+                />
+              </button>
+            </footer>
+          </>
+        )}
       </article>
     </dialog>
   );
