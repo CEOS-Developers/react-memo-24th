@@ -6,6 +6,7 @@ import mockMemos from "./data/mockData";
 import type { Memo, MemoTag } from "./types/memos";
 import MemoLists from "./components/MemoLists";
 import Select from "./components/Select";
+import { TAG_OPTIONS } from "./constants/tags";
 
 function App() {
   const [memos, setMemos] = useState<Memo[]>(mockMemos);
@@ -35,9 +36,7 @@ function App() {
                 aria-label="검색 태그"
                 options={[
                   { value: "", label: "태그 선택" },
-                  { value: "Work", label: "Work" },
-                  { value: "Daily", label: "Daily" },
-                  { value: "Others", label: "Others" },
+                  ...TAG_OPTIONS,
                 ]}
                 value={selectedTag}
                 onValueChange={(value) => {

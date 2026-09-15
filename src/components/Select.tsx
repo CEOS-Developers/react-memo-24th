@@ -1,4 +1,6 @@
 import type { ComponentProps } from "react";
+import { TAG_COLORS } from "../constants/tags";
+import type { MemoTag } from "../types/memos";
 import PlayIcon from "./icons/PlayIcon";
 
 type SelectOption = {
@@ -25,13 +27,8 @@ export default function Select({
 }: SelectProps) {
   const isSelected =
     value === "Daily" || value === "Others" || value === "Work";
-  const tagColors = {
-    Work: "text-blue06",
-    Daily: "text-blue04",
-    Others: "text-gray03",
-  };
   const selectedColor = isSelected
-    ? tagColors[value as keyof typeof tagColors]
+    ? TAG_COLORS[value as MemoTag]
     : "text-blue07";
   const selectedStyle = `${selectedColor} bg-blue01 text-action-medium py-1`;
   const basicStyle = "text-blue07 bg-blue01 text-action-small py-1.5";

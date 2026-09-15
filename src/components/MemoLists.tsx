@@ -1,4 +1,5 @@
 import type { Memo } from "../types/memos";
+import { TAG_COLORS } from "../constants/tags";
 import PlusIcon from "./icons/PlusIcon";
 import SearchIcon from "./icons/SearchIcon";
 import StarIcon from "./icons/StarIcon";
@@ -62,7 +63,7 @@ const MemoLists = ({ memos, totalCount, onCreateMemo }: MemoListsProps) => {
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center justify-between gap-3 text-body-small text-gray03">
-                    <span>{memo.tag}</span>
+                    <span className={TAG_COLORS[memo.tag]}>{memo.tag}</span>
                     <time dateTime={memo.date}>
                       {memo.date.replaceAll("-", ".")}
                     </time>
