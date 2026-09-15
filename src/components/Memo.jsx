@@ -10,11 +10,13 @@ function Memo({
   date,
   isImportant,
   onToggleImportant,
+  onMemoClick,
 }) {
   return (
     <article
       className="flex h-[285px] w-[285px] flex-col rounded-[20px] px-[20px] py-[12px] text-[#FAFAFA]"
       style={{ backgroundColor: TAG_COLORS[tag] }}
+      onClick={() => onMemoClick(memoId)}
     >
       <div className="flex items-start justify-between">
         <h2 className="text-[20px] leading-[28px] font-bold">{title}</h2>

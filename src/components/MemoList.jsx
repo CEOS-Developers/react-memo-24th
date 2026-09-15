@@ -1,6 +1,6 @@
 import Memo from './Memo';
 
-function MemoList({ memos, onToggleImportant }) {
+function MemoList({ memos, onToggleImportant, onMemoClick }) {
   return (
     <section className="grid grid-cols-4 gap-[20px]">
       {memos.map((memo) => (
@@ -13,6 +13,7 @@ function MemoList({ memos, onToggleImportant }) {
           date={memo.date}
           isImportant={memo.isImportant}
           onToggleImportant={onToggleImportant}
+          onMemoClick={onMemoClick}
         />
       ))}
     </section>

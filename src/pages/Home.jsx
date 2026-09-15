@@ -1,6 +1,7 @@
 import NavBar from '../components/NavBar';
 import EmptyMemo from '../components/EmptyMemo';
 import MemoList from '../components/MemoList';
+import MemoModal from '../components/MemoModal';
 // 목데이터로 확인
 import { MockDataMemo } from '../data/MockDataMemo';
 
@@ -11,13 +12,17 @@ const Home = () => {
     const savedMemos = localStorage.getItem('memos');
     return savedMemos ? JSON.parse(savedMemos) : MockDataMemo;
   });
+
   useEffect(() => {
     localStorage.setItem('memos', JSON.stringify(memos));
   }, [memos]);
+
   // 네브바의 태그 선택
   const [selectedTag, setSelectedTag] = useState('All');
   // 네브바의 검색어 입력
   const [searchQuery, setSearchQuery] = useState('');
+  // 모달 상태 관리
+  const [selectedMemoId, setSelectedMemoId] = useState(null);
 
   const filteredMemos = memos.filter((memo) => {
     const matchesTag = selectedTag === 'All' || memo.tag === selectedTag;
@@ -44,6 +49,9 @@ const Home = () => {
   const importantMemos = filteredMemos.filter((memo) => memo.isImportant);
   const normalMemos = filteredMemos.filter((memo) => !memo.isImportant);
 
+  // 모달 선택
+  const selectedMemo = memos.find((memo) => memo.id === selectedMemoId);
+
   return (
     <main className="min-h-screen w-full bg-[#E4EDFF] px-[120px] pt-[72px] pb-[86px]">
       <div className="flex  w-full flex-col gap-[76px]">
@@ -61,15 +69,23 @@ const Home = () => {
             <MemoList
               memos={importantMemos}
               onToggleImportant={handleToggleImportant}
+              onMemoClick={setSelectedMemoId}
             />
 
             <MemoList
               memos={normalMemos}
               onToggleImportant={handleToggleImportant}
+              onMemoClick={setSelectedMemoId}
             />
           </div>
         )}
       </div>
+      {selectedMemo && (
+        <MemoModal
+          memo={selectedMemo}
+          onClose={() => setSelectedMemoId(null)}
+        />
+      )}
     </main>
   );
 };
