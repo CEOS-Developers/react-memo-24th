@@ -3,11 +3,11 @@ import IconButton from './IconButton.jsx'
 
 function EmptyState() {
   return (
-    <section className="flex h-[710px] w-full flex-col items-center justify-center gap-[10px] rounded-3xl border-2 border-dashed border-blue-02">
+    <section className="flex h-177.5 w-full flex-col items-center justify-center gap-2.5 rounded-3xl border-2 border-dashed border-blue-02">
       <IconButton
         icon={addMemoIcon}
         label="메모 추가"
-        className="h-[120px] w-[120px] bg-blue-02 hover:bg-blue-03 [&_img]:h-[39px] [&_img]:w-[39px]"
+        className="h-30 w-30 bg-blue-02 hover:bg-blue-03 [&_img]:h-9.75 [&_img]:w-9.75"
       />
 
       <p className="text-heading-medium font-semibold text-blue-02">

@@ -2,7 +2,7 @@ import searchEmptyIcon from '../assets/search-empty.svg'
 
 function NoResultsState() {
   return (
-    <section className="flex h-[710px] w-full flex-col items-center justify-center gap-5 rounded-3xl border-2 border-dashed border-blue-07">
+    <section className="flex h-177.5 w-full flex-col items-center justify-center gap-5 rounded-3xl border-2 border-dashed border-blue-07">
       <div className="flex h-24 w-24 items-center justify-center rounded-full bg-blue-07">
         <img
           className="h-9.75 w-9.75"
