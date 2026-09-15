@@ -1,6 +1,6 @@
-import searchIcon from '../assets/search.svg'
-import IconButton from './IconButton.jsx'
-import TagFilter from './TagFilter.jsx'
+import searchIcon from "../assets/search.svg";
+import IconButton from "./IconButton.jsx";
+import TagFilter from "./TagFilter.jsx";
 
 function SearchBar({
   selectedCategory,
@@ -9,12 +9,12 @@ function SearchBar({
   onSearchTextChange,
 }) {
   const handleSubmit = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   const handleInputChange = (event) => {
-    onSearchTextChange(event.target.value)
-  }
+    onSearchTextChange(event.target.value);
+  };
 
   return (
     <form
@@ -42,7 +42,7 @@ function SearchBar({
         className="h-12 w-12 shrink-0 hover:bg-blue-01 [&_img]:h-9.75 [&_img]:w-9.75"
       />
     </form>
-  )
+  );
 }
 
-export default SearchBar
+export default SearchBar;

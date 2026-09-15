@@ -1,10 +1,4 @@
-function IconButton({
-  icon,
-  label,
-  type = 'button',
-  className = '',
-  onClick,
-}) {
+function IconButton({ icon, label, type = "button", className = "", onClick }) {
   return (
     <button
       type={type}
@@ -14,7 +8,7 @@ function IconButton({
     >
       <img src={icon} alt="" />
     </button>
-  )
+  );
 }
 
-export default IconButton
+export default IconButton;

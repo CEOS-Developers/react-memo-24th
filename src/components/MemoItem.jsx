@@ -1,36 +1,31 @@
-import pinActiveIcon from '../assets/pin-active.svg'
-import pinIcon from '../assets/pin.svg'
-import CATEGORY_STYLES from '../constants/categoryStyles.js'
-import IconButton from './IconButton.jsx'
+import pinActiveIcon from "../assets/pin-active.svg";
+import pinIcon from "../assets/pin.svg";
+import CATEGORY_STYLES from "../constants/categoryStyles.js";
+import IconButton from "./IconButton.jsx";
 
-function MemoItem({
-  memo,
-  onTogglePin,
-  onSelectMemo,
-}) {
-  const { title, content, category, date, isPinned } = memo
-  const categoryStyle =
-    CATEGORY_STYLES[category] ?? CATEGORY_STYLES.Others
+function MemoItem({ memo, onTogglePin, onSelectMemo }) {
+  const { title, content, category, date, isPinned } = memo;
+  const categoryStyle = CATEGORY_STYLES[category] ?? CATEGORY_STYLES.Others;
 
   const handleCardClick = () => {
-    onSelectMemo(memo)
-  }
+    onSelectMemo(memo);
+  };
 
   const handleCardKeyDown = (event) => {
     if (event.target !== event.currentTarget) {
-      return
+      return;
     }
 
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      onSelectMemo(memo)
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onSelectMemo(memo);
     }
-  }
+  };
 
   const handlePinClick = (event) => {
-    event.stopPropagation()
-    onTogglePin(memo.id)
-  }
+    event.stopPropagation();
+    onTogglePin(memo.id);
+  };
 
   return (
     <article
@@ -48,7 +43,7 @@ function MemoItem({
 
         <IconButton
           icon={isPinned ? pinActiveIcon : pinIcon}
-          label={isPinned ? '메모 고정 해제' : '메모 고정'}
+          label={isPinned ? "메모 고정 해제" : "메모 고정"}
           className="h-7 w-7 shrink-0 focus-visible:outline-white-00 [&_img]:h-5.5 [&_img]:w-5.75"
           onClick={handlePinClick}
         />
@@ -67,7 +62,7 @@ function MemoItem({
         </span>
       </div>
     </article>
-  )
+  );
 }
 
-export default MemoItem
+export default MemoItem;

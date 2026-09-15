@@ -53,9 +53,7 @@ function TagFilter({ selectedCategory, onSelectCategory }) {
         />
         <span>{selectedCategory}</span>
         <img
-          className={`h-3.25 w-4 ${
-            isOpen ? "rotate-90" : "rotate-0"
-          }`}
+          className={`h-3.25 w-4 ${isOpen ? "rotate-90" : "rotate-0"}`}
           src={tagArrowIcon}
           alt=""
         />

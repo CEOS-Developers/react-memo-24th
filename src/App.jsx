@@ -1,67 +1,63 @@
-import { useState } from 'react'
-import EmptyState from './components/EmptyState.jsx'
-import Header from './components/Header.jsx'
-import MemoDetail from './components/MemoDetail.jsx'
-import MemoList from './components/MemoList.jsx'
-import NoResultsState from './components/NoResultsState.jsx'
-import initialMemos from './data/initialMemos.js'
+import { useState } from "react";
+import EmptyState from "./components/EmptyState.jsx";
+import Header from "./components/Header.jsx";
+import MemoDetail from "./components/MemoDetail.jsx";
+import MemoList from "./components/MemoList.jsx";
+import NoResultsState from "./components/NoResultsState.jsx";
+import initialMemos from "./data/initialMemos.js";
 
 function App() {
-  const [memos, setMemos] = useState(initialMemos)
-  const [selectedCategory, setSelectedCategory] =
-    useState('All')
-  const [searchText, setSearchText] = useState('')
-  const [selectedMemo, setSelectedMemo] = useState(null)
+  const [memos, setMemos] = useState(initialMemos);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchText, setSearchText] = useState("");
+  const [selectedMemo, setSelectedMemo] = useState(null);
 
-  const hasMemos = memos.length > 0
-  const keyword = searchText.trim().toLowerCase()
+  const hasMemos = memos.length > 0;
+  const keyword = searchText.trim().toLowerCase();
 
   const visibleMemos = memos.filter((memo) => {
     const matchesCategory =
-      selectedCategory === 'All' ||
-      memo.category === selectedCategory
+      selectedCategory === "All" || memo.category === selectedCategory;
 
     const matchesSearch =
       memo.title.toLowerCase().includes(keyword) ||
-      memo.content.toLowerCase().includes(keyword)
+      memo.content.toLowerCase().includes(keyword);
 
-    return matchesCategory && matchesSearch
-  })
+    return matchesCategory && matchesSearch;
+  });
 
-  const hasVisibleMemos = visibleMemos.length > 0
+  const hasVisibleMemos = visibleMemos.length > 0;
 
   const handleTogglePin = (memoId) => {
     setMemos((currentMemos) =>
       currentMemos.map((memo) =>
-        memo.id === memoId
-          ? { ...memo, isPinned: !memo.isPinned }
-          : memo,
+        memo.id === memoId ? { ...memo, isPinned: !memo.isPinned } : memo,
       ),
-    )
-  }
+    );
+  };
 
   const handleSelectCategory = (category) => {
-    setSelectedCategory(category)
-  }
+    setSelectedCategory(category);
+  };
 
   const handleSearchTextChange = (value) => {
-    setSearchText(value)
-  }
+    setSearchText(value);
+  };
 
   const handleSelectMemo = (memo) => {
-    setSelectedMemo(memo)
-  }
+    setSelectedMemo(memo);
+  };
 
   const handleCloseMemo = () => {
-    setSelectedMemo(null)
-  }
+    setSelectedMemo(null);
+  };
 
   return (
     <>
       <main className="min-h-screen bg-blue-01 px-6 py-18 font-sans">
         <div
           className={`mx-auto flex w-full max-w-300 flex-col ${
-            hasMemos ? 'gap-13' : 'gap-19'
+            hasMemos ? "gap-13" : "gap-19"
           }`}
         >
           <Header
@@ -86,13 +82,10 @@ function App() {
       </main>
 
       {selectedMemo && (
-        <MemoDetail
-          memo={selectedMemo}
-          onClose={handleCloseMemo}
-        />
+        <MemoDetail memo={selectedMemo} onClose={handleCloseMemo} />
       )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

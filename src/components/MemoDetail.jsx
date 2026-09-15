@@ -1,33 +1,33 @@
-import { useEffect } from 'react'
-import closeIcon from '../assets/close.svg'
-import deleteIcon from '../assets/delete.svg'
-import editIcon from '../assets/edit.svg'
-import CATEGORY_STYLES from '../constants/categoryStyles.js'
-import IconButton from './IconButton.jsx'
+import { useEffect } from "react";
+import closeIcon from "../assets/close.svg";
+import deleteIcon from "../assets/delete.svg";
+import editIcon from "../assets/edit.svg";
+import CATEGORY_STYLES from "../constants/categoryStyles.js";
+import IconButton from "./IconButton.jsx";
 
 function MemoDetail({ memo, onClose }) {
   const categoryStyle =
-    CATEGORY_STYLES[memo.category] ?? CATEGORY_STYLES.Others
+    CATEGORY_STYLES[memo.category] ?? CATEGORY_STYLES.Others;
 
   useEffect(() => {
     const handleEscapeKey = (event) => {
-      if (event.key === 'Escape') {
-        onClose()
+      if (event.key === "Escape") {
+        onClose();
       }
-    }
+    };
 
-    document.addEventListener('keydown', handleEscapeKey)
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
-      document.removeEventListener('keydown', handleEscapeKey)
-    }
-  }, [onClose])
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [onClose]);
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
-      onClose()
+      onClose();
     }
-  }
+  };
 
   return (
     <div
@@ -101,7 +101,7 @@ function MemoDetail({ memo, onClose }) {
         </footer>
       </article>
     </div>
-  )
+  );
 }
 
-export default MemoDetail
+export default MemoDetail;

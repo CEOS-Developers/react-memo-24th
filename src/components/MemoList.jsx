@@ -1,14 +1,8 @@
-import MemoItem from './MemoItem.jsx'
+import MemoItem from "./MemoItem.jsx";
 
-function MemoList({
-  memos,
-  onTogglePin,
-  onSelectMemo,
-}) {
-  const pinnedMemos = memos.filter((memo) => memo.isPinned)
-  const unpinnedMemos = memos.filter(
-    (memo) => !memo.isPinned,
-  )
+function MemoList({ memos, onTogglePin, onSelectMemo }) {
+  const pinnedMemos = memos.filter((memo) => memo.isPinned);
+  const unpinnedMemos = memos.filter((memo) => !memo.isPinned);
 
   return (
     <section className="flex w-full flex-col gap-5">
@@ -38,7 +32,7 @@ function MemoList({
         </div>
       )}
     </section>
-  )
+  );
 }
 
-export default MemoList
+export default MemoList;

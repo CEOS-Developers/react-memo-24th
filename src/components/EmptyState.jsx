@@ -1,5 +1,5 @@
-import addMemoIcon from '../assets/add-memo.svg'
-import IconButton from './IconButton.jsx'
+import addMemoIcon from "../assets/add-memo.svg";
+import IconButton from "./IconButton.jsx";
 
 function EmptyState() {
   return (
@@ -14,7 +14,7 @@ function EmptyState() {
         새로운 메모를 작성해보세요!
       </p>
     </section>
-  )
+  );
 }
 
-export default EmptyState
+export default EmptyState;

@@ -1,7 +1,7 @@
-import addIcon from '../assets/add.svg'
-import profileIcon from '../assets/profile.svg'
-import IconButton from './IconButton.jsx'
-import SearchBar from './SearchBar.jsx'
+import addIcon from "../assets/add.svg";
+import profileIcon from "../assets/profile.svg";
+import IconButton from "./IconButton.jsx";
+import SearchBar from "./SearchBar.jsx";
 
 function Header({
   selectedCategory,
@@ -32,7 +32,7 @@ function Header({
         />
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
