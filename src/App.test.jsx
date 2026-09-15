@@ -69,3 +69,33 @@ test("메모가 없는 안내는 검색 실패 안내와 구분한다", () => {
   );
   expect(screen.queryByText("검색 결과가 없습니다")).toBeNull();
 });
+
+test("수정 저장은 목록에도 반영되고 취소는 원래 내용을 유지한다", async () => {
+  HTMLDialogElement.prototype.showModal = vi.fn(function () {
+    this.setAttribute("open", "");
+  });
+  HTMLDialogElement.prototype.close = vi.fn(function () {
+    this.removeAttribute("open");
+  });
+  const user = userEvent.setup();
+  render(<App />);
+  await user.click(screen.getByLabelText("오늘의 기록 상세 보기"));
+  await user.click(screen.getByLabelText("메모 수정"));
+  await user.clear(screen.getByLabelText("제목"));
+  expect(screen.getByRole("button", { name: "저장" }).disabled).toBe(true);
+  await user.type(screen.getByLabelText("제목"), "수정한 기록");
+  await user.clear(screen.getByLabelText("내용"));
+  await user.type(screen.getByLabelText("내용"), "수정한 내용입니다");
+  await user.click(screen.getByRole("button", { name: "저장" }));
+  expect(
+    within(screen.getByRole("dialog")).getByText("수정한 내용입니다"),
+  ).toBeTruthy();
+  await user.click(screen.getByLabelText("메모 수정"));
+  await user.type(screen.getByLabelText("제목"), " 취소할 변경");
+  await user.click(screen.getByRole("button", { name: "취소" }));
+  expect(
+    within(screen.getByRole("dialog")).getByRole("heading").textContent,
+  ).toBe("수정한 기록");
+  await user.click(screen.getByLabelText("닫기"));
+  expect(screen.getByLabelText("수정한 기록 상세 보기")).toBeTruthy();
+});
