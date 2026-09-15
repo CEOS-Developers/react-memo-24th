@@ -108,7 +108,7 @@ const MemoLists = ({
                             />
                           </button>
                         </div>
-                        <p className="mt-3 line-clamp-6 whitespace-pre-wrap word-break-words text-body-medium">
+                        <p className="mt-3 line-clamp-6 whitespace-pre-wrap word-break-words text-body-medium overflow-y-scroll">
                           {memo.content}
                         </p>
                       </div>

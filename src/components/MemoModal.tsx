@@ -30,7 +30,7 @@ export default function MemoModal({ memo, onClose }: MemoModalProps) {
       ref={dialogRef}
       id="modal-memo"
       aria-labelledby="modal-memo-heading"
-      className={`fixed inset-0 m-auto max-h-[85dvh] w-139 h-139 py-10 px-11 overflow-y-auto rounded-[24px] text-white00 shadow-xl backdrop:bg-blue07/50 ${MEMO_COLORS[memo.tag]}`}
+      className={`fixed inset-0 m-auto max-h-[85dvh] w-139 h-139 py-10 px-11 overflow-y-hidden rounded-[24px] text-white00 shadow-xl backdrop:bg-blue07/50 ${MEMO_COLORS[memo.tag]}`}
       onCancel={(event) => {
         event.preventDefault();
         onClose();
@@ -38,7 +38,7 @@ export default function MemoModal({ memo, onClose }: MemoModalProps) {
     >
       <form
         id="memo-form"
-        className="flex flex-col gap-6"
+        className="flex flex-col h-full gap-6"
         onSubmit={(event) => event.preventDefault()}
       >
         <div
@@ -85,7 +85,7 @@ export default function MemoModal({ memo, onClose }: MemoModalProps) {
 
         <div
           id="modal-memo-content"
-          className="min-h-60 whitespace-pre-wrap wrap-break-words pt-5.5s text-body-large"
+          className="min-h-60 whitespace-pre-wrap overflow-scroll  wrap-break-words pt-5.5s text-body-large"
         >
           {memo.content || "내용이 없는 메모입니다."}
         </div>
