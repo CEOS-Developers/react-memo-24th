@@ -1,4 +1,4 @@
-function MemoCard({ memo, onTogglePin }) {
+function MemoCard({ memo, onTogglePin, onSelectMemo }) {
   const tagColorClass = {
     Daily: "bg-blue-03",
     Work: "bg-blue-06",
@@ -7,7 +7,8 @@ function MemoCard({ memo, onTogglePin }) {
 
   return (
     <article
-      className={`flex h-[200px] flex-col rounded-[20px] p-5 text-white-00 ${
+      onClick={() => onSelectMemo(memo)}
+      className={`flex h-[200px] cursor-pointer flex-col rounded-[20px] p-5 text-white-00 ${
         tagColorClass[memo.tag]
       }`}
     >
@@ -16,7 +17,10 @@ function MemoCard({ memo, onTogglePin }) {
 
         <button
           type="button"
-          onClick={() => onTogglePin(memo.id)}
+          onClick={(event) => {
+            event.stopPropagation();
+            onTogglePin(memo.id);
+          }}
           aria-label={memo.isPinned ? "메모 고정 해제" : "메모 고정"}
           aria-pressed={memo.isPinned}
           className="flex size-6 shrink-0 items-center justify-center"

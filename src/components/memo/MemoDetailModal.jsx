@@ -1,0 +1,52 @@
+import exitIcon from "../../assets/icons/Exit.svg";
+
+function MemoDetailModal({ memo, onClose }) {
+  const tagColorClass = {
+    Daily: "bg-blue-03",
+    Work: "bg-blue-06",
+    Others: "bg-gray-02",
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-10 flex items-center justify-center bg-blue-07/55 p-5"
+      onClick={onClose}
+    >
+      <article
+        className={`relative flex h-[556px] w-full max-w-[556px] flex-col rounded-3xl p-10 text-white-00 ${
+          tagColorClass[memo.tag]
+        }`}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="상세 보기 닫기"
+          className="absolute right-10 top-10"
+        >
+          <img src={exitIcon} alt="" aria-hidden="true" className="size-8" />
+        </button>
+
+        <h2 className="pr-10 text-heading-large font-extrabold">
+          {memo.title}
+        </h2>
+
+        <div className="mt-7 flex items-center">
+          <span className="rounded-full bg-white-00 px-5 py-2 text-body-medium font-semibold text-blue-07">
+            {memo.tag}
+          </span>
+
+          <span className="mx-5 h-[54px] w-[3px] bg-white-00" />
+
+          <time className="text-body-medium font-semibold">{memo.date}</time>
+        </div>
+
+        <p className="mt-8 whitespace-pre-wrap break-words text-body-large">
+          {memo.content}
+        </p>
+      </article>
+    </div>
+  );
+}
+
+export default MemoDetailModal;

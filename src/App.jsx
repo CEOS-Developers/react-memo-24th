@@ -4,12 +4,14 @@ import MemoEditor from "./components/memo/MemoEditor";
 import MemoList from "./components/memo/MemoList";
 import Header from "./components/layout/Header";
 import NoResultState from "./components/feedback/NoResultState";
+import MemoDetailModal from "./components/memo/MemoDetailModal";
 
 function App() {
   const [memos, setMemos] = useState([]);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedFilterTag, setSelectedFilterTag] = useState("");
+  const [selectedMemo, setSelectedMemo] = useState(null);
 
   function handleCreateMemo(memoData) {
     const newMemo = {
@@ -65,7 +67,17 @@ function App() {
       ) : filteredMemos.length === 0 ? (
         <NoResultState />
       ) : (
-        <MemoList memos={filteredMemos} onTogglePin={handleTogglePin} />
+        <MemoList
+          memos={filteredMemos}
+          onTogglePin={handleTogglePin}
+          onSelectMemo={setSelectedMemo}
+        />
+      )}
+      {selectedMemo && (
+        <MemoDetailModal
+          memo={selectedMemo}
+          onClose={() => setSelectedMemo(null)}
+        />
       )}
     </main>
   );
