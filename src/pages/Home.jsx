@@ -2,6 +2,7 @@ import NavBar from '../components/NavBar';
 import EmptyMemo from '../components/EmptyMemo';
 import MemoList from '../components/MemoList';
 import MemoModal from '../components/MemoModal';
+import EmptySearch from '../components/EmptySearch';
 // 목데이터로 확인
 import { MockDataMemo } from '../data/MockDataMemo';
 
@@ -64,6 +65,8 @@ const Home = () => {
         {/* Memo Content */}
         {memos.length === 0 ? (
           <EmptyMemo />
+        ) : filteredMemos.length === 0 ? (
+          <EmptySearch />
         ) : (
           <div className="flex flex-col gap-[20px]">
             <MemoList
