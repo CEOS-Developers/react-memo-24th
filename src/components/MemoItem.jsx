@@ -1,12 +1,15 @@
-import pinActiveIcon from '../assets/pin-active.svg'
-import pinIcon from '../assets/pin.svg'
-import CATEGORY_STYLES from '../constants/categoryStyles.js'
-import IconButton from './IconButton.jsx'
+import pinActiveIcon from "../assets/pin-active.svg";
+import pinIcon from "../assets/pin.svg";
+import CATEGORY_STYLES from "../constants/categoryStyles.js";
+import IconButton from "./IconButton.jsx";
 
-function MemoItem({ memo }) {
-  const { title, content, category, date, isPinned } = memo
-  const categoryStyle =
-    CATEGORY_STYLES[category] ?? CATEGORY_STYLES.Others
+function MemoItem({ memo , onTogglePin }) {
+  const { title, content, category, date, isPinned } = memo;
+  const categoryStyle = CATEGORY_STYLES[category] ?? CATEGORY_STYLES.Others;
+  const handlePinClick = (event) => {
+    event.stopPropagation();
+    onTogglePin(memo.id);
+  };
 
   return (
     <article
@@ -19,8 +22,9 @@ function MemoItem({ memo }) {
 
         <IconButton
           icon={isPinned ? pinActiveIcon : pinIcon}
-          label={isPinned ? '메모 고정 해제' : '메모 고정'}
+          label={isPinned ? "메모 고정 해제" : "메모 고정"}
           className="h-7 w-7 shrink-0 focus-visible:outline-white-00 [&_img]:h-[22px] [&_img]:w-[23px]"
+          onClick={handlePinClick}
         />
       </div>
 
@@ -37,7 +41,7 @@ function MemoItem({ memo }) {
         </span>
       </div>
     </article>
-  )
+  );
 }
 
-export default MemoItem
+export default MemoItem;
