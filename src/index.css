@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@font-face { font-family: Pretendard; src: url('/assets/fonts/Pretendard-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: Pretendard; src: url('/assets/fonts/Pretendard-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@theme {
+  --color-page: #e4edff;
+  --color-surface: #fafafa;
+  --color-navy: #001b51;
+  --color-muted: #a6bad2;
+  --color-soft: #a8c7ff;
+  --color-daily: #7ba3ff;
+  --color-work: #0037a3;
+  --color-others: #a6b9ca;
+  --font-sans: Pretendard, sans-serif;
+}
+@layer base {
+  body { margin: 0; background: var(--color-page); color: var(--color-navy); font-family: var(--font-sans); }
+  button:not(:disabled), select { cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--color-navy); outline-offset: 3px; }
+}
