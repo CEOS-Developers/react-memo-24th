@@ -5,6 +5,7 @@ import PeopleIcon from "./components/icons/PeopleIcon";
 import mockMemos from "./data/mockData";
 import type { Memo, MemoTag } from "./types/memos";
 import MemoLists from "./components/MemoLists";
+import MemoModal from "./components/MemoModal";
 import Select from "./components/Select";
 import { TAG_OPTIONS } from "./constants/tags";
 
@@ -13,6 +14,8 @@ function App() {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const [selectedTag, setSelectedTag] = useState<MemoTag | "">("");
+  const [selectedMemoId, setSelectedMemoId] = useState<Memo["id"] | null>(null);
+  const selectedMemo = memos.find((memo) => memo.id === selectedMemoId);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -84,14 +87,14 @@ function App() {
         <button
           type="button"
           aria-label="새로운 메모 작성"
-          className="shrink-0 p-4 bg-white00 rounded-[40px]"
+          className="shrink-0 p-4 bg-white00 rounded-[40px] cursor-pointer"
         >
           <PlusIcon className="text-blue07" />
         </button>
         <button
           type="button"
           aria-label="마이페이지"
-          className="shrink-0 p-4 bg-white00 rounded-[40px]"
+          className="shrink-0 p-4 bg-white00 rounded-[40px] cursor-pointer"
         >
           <PeopleIcon className="text-blue07" />
         </button>
@@ -101,7 +104,14 @@ function App() {
         memos={filteredMemos}
         totalCount={memos.length}
         onToggleFavorite={toggleFavorite}
+        onSelectMemo={setSelectedMemoId}
       />
+      {selectedMemo && (
+        <MemoModal
+          memo={selectedMemo}
+          onClose={() => setSelectedMemoId(null)}
+        />
+      )}
     </div>
   );
 }

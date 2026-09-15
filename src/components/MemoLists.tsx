@@ -9,6 +9,7 @@ type MemoListsProps = {
   totalCount: number;
   onCreateMemo?: () => void;
   onToggleFavorite: (id: Memo["id"]) => void;
+  onSelectMemo: (id: Memo["id"]) => void;
 };
 
 const MemoLists = ({
@@ -16,6 +17,7 @@ const MemoLists = ({
   totalCount,
   onCreateMemo,
   onToggleFavorite,
+  onSelectMemo,
 }: MemoListsProps) => {
   const groups = [
     {
@@ -79,8 +81,14 @@ const MemoLists = ({
                 {group.memos.map((memo) => (
                   <li key={memo.id} className="w-[285px] max-w-full shrink-0">
                     <article
-                      className={`flex flex-col w-full h-[285px] rounded-2xl text-white00 py-8 px-5 ${MEMO_COLORS[memo.tag]}`}
+                      className={`relative flex flex-col w-full h-[285px] rounded-2xl text-white00 py-8 px-5 ${MEMO_COLORS[memo.tag]}`}
                     >
+                      <button
+                        type="button"
+                        aria-label={`${memo.title} 상세 보기`}
+                        className="absolute inset-0 cursor-pointer rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue07"
+                        onClick={() => onSelectMemo(memo.id)}
+                      />
                       <div className="min-h-0 flex-1 overflow-hidden">
                         <div className="flex justify-between">
                           <h2 className="line-clamp-1 text-heading-small">
@@ -88,7 +96,7 @@ const MemoLists = ({
                           </h2>
                           <button
                             type="button"
-                            className="cursor-pointer"
+                            className="relative z-10 shrink-0 cursor-pointer"
                             aria-label={`${memo.title} 즐겨찾기`}
                             aria-pressed={!!memo.isFavorite}
                             onClick={() => onToggleFavorite(memo.id)}
@@ -100,7 +108,7 @@ const MemoLists = ({
                             />
                           </button>
                         </div>
-                        <p className="mt-3 line-clamp-6 whitespace-pre-wrap break-words text-body-medium">
+                        <p className="mt-3 line-clamp-6 whitespace-pre-wrap word-break-words text-body-medium">
                           {memo.content}
                         </p>
                       </div>
