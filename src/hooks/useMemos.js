@@ -32,7 +32,13 @@ const SAMPLE_MEMOS = [
 ];
 
 export function useMemos() {
-  const [memos] = useState(SAMPLE_MEMOS);
+  const [memos, setMemos] = useState(SAMPLE_MEMOS);
 
-  return { memos };
+  const togglePin = (id) => {
+    setMemos((prev) =>
+      prev.map((memo) => (memo.id === id ? { ...memo, pinned: !memo.pinned } : memo)),
+    );
+  };
+
+  return { memos, togglePin };
 }

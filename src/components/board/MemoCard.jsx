@@ -1,7 +1,8 @@
+import iconStarFilled from "../../assets/icons/star-filled.svg";
 import iconStarOutline from "../../assets/icons/star-outline.svg";
 import { TAG_STYLES } from "../../constants/tag";
 
-export default function MemoCard({ memo }) {
+export default function MemoCard({ memo, onTogglePin }) {
   const { bg, label, footer } = TAG_STYLES[memo.tag];
 
   return (
@@ -10,8 +11,13 @@ export default function MemoCard({ memo }) {
     >
       <div className="flex items-start justify-between gap-4">
         <h3 className="truncate text-heading-sm">{memo.title}</h3>
-        <button type="button" aria-label="고정" className="size-6 shrink-0 cursor-pointer">
-          <img src={iconStarOutline} alt="" className="size-full" />
+        <button
+          type="button"
+          aria-label={memo.pinned ? "고정 해제" : "고정"}
+          onClick={() => onTogglePin(memo.id)}
+          className="size-6 shrink-0 cursor-pointer"
+        >
+          <img src={memo.pinned ? iconStarFilled : iconStarOutline} alt="" className="size-full" />
         </button>
       </div>
       <p className="line-clamp-7 grow text-body-sm opacity-95">{memo.content}</p>

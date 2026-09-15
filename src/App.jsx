@@ -5,7 +5,7 @@ import { useMemos } from "./hooks/useMemos";
 import { filterMemos } from "./utils/memo";
 
 export default function App() {
-  const { memos } = useMemos();
+  const { memos, togglePin } = useMemos();
   const [keyword, setKeyword] = useState("");
   const [activeTag, setActiveTag] = useState(null);
 
@@ -22,7 +22,11 @@ export default function App() {
         activeTag={activeTag}
         onTagChange={setActiveTag}
       />
-      <MemoBoard memos={filteredMemos} hasAnyMemo={memos.length > 0} />
+      <MemoBoard
+        memos={filteredMemos}
+        hasAnyMemo={memos.length > 0}
+        onTogglePin={togglePin}
+      />
     </div>
   );
 }
