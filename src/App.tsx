@@ -24,6 +24,14 @@ function App() {
 
   const query = debouncedKeyword.trim().toLowerCase();
 
+  const toggleFavorite = (id: Memo["id"]) => {
+    setMemos((previousMemos) =>
+      previousMemos.map((memo) =>
+        memo.id === id ? { ...memo, isFavorite: !memo.isFavorite } : memo,
+      ),
+    );
+  };
+
   const filteredMemos = memos.filter((memo) => {
     const matchesTag = selectedTag === "" || memo.tag === selectedTag;
 
@@ -89,7 +97,11 @@ function App() {
         </button>
       </div>
 
-      <MemoLists memos={filteredMemos} totalCount={memos.length} />
+      <MemoLists
+        memos={filteredMemos}
+        totalCount={memos.length}
+        onToggleFavorite={toggleFavorite}
+      />
     </div>
   );
 }
