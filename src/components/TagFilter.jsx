@@ -42,7 +42,7 @@ function TagFilter({ selectedCategory, onSelectCategory }) {
     <div ref={filterRef} className="relative shrink-0">
       <button
         type="button"
-        className={`flex h-9 w-[116px] items-center justify-center gap-[10px] whitespace-nowrap rounded-full bg-blue-01 px-4 text-action-small font-extrabold hover:bg-blue-02 focus-visible:outline-2 focus-visible:outline-blue-05 ${selectedStyle.text}`}
+        className={`flex h-9 w-29 items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-blue-01 px-4 text-action-small font-extrabold hover:bg-blue-02 focus-visible:outline-2 focus-visible:outline-blue-05 ${selectedStyle.text}`}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         onClick={() => setIsOpen((currentIsOpen) => !currentIsOpen)}
@@ -53,7 +53,7 @@ function TagFilter({ selectedCategory, onSelectCategory }) {
         />
         <span>{selectedCategory}</span>
         <img
-          className={`h-[13px] w-4 ${
+          className={`h-3.25 w-4 ${
             isOpen ? "rotate-90" : "rotate-0"
           }`}
           src={tagArrowIcon}
@@ -63,7 +63,7 @@ function TagFilter({ selectedCategory, onSelectCategory }) {
 
       {isOpen && (
         <div
-          className="absolute top-[68px] left-1 z-10 flex h-[164px] w-[140px] flex-col justify-between rounded-[28px] bg-blue-01 px-6 py-4"
+          className="absolute top-17 left-1 z-10 flex h-41 w-35 flex-col justify-between rounded-[28px] bg-blue-01 px-6 py-4"
           role="listbox"
           aria-label="메모 카테고리"
         >

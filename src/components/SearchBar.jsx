@@ -9,7 +9,7 @@ function SearchBar({ selectedCategory, onSelectCategory }) {
 
   return (
     <form
-      className="flex h-20 min-w-0 flex-1 items-center gap-[10px] rounded-[28px] bg-white-00 p-4"
+      className="flex h-20 min-w-0 flex-1 items-center gap-2.5 rounded-[28px] bg-white-00 p-4"
       onSubmit={handleSubmit}
     >
       <TagFilter
@@ -28,7 +28,7 @@ function SearchBar({ selectedCategory, onSelectCategory }) {
         icon={searchIcon}
         label="메모 검색"
         type="submit"
-        className="h-12 w-12 shrink-0 hover:bg-blue-01 [&_img]:h-[39px] [&_img]:w-[39px]"
+        className="h-12 w-12 shrink-0 hover:bg-blue-01 [&_img]:h-9.75 [&_img]:w-9.75"
       />
     </form>
   );
