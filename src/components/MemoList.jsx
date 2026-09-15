@@ -2,7 +2,7 @@ import Memo from './Memo';
 
 function MemoList({ memos, onToggleImportant, onMemoClick }) {
   return (
-    <section className="grid grid-cols-4 gap-[20px]">
+    <section className="grid grid-cols-[repeat(4,285px)] justify-center gap-[20px]">
       {memos.map((memo) => (
         <Memo
           key={memo.id}
