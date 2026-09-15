@@ -1,11 +1,14 @@
 import NavBar from '../components/NavBar';
 import EmptyMemo from '../components/EmptyMemo';
 import MemoList from '../components/MemoList';
+// 목데이터로 확인
+import { MockDataMemo } from '../data/MockDataMemo';
 
 import { useState } from 'react';
 
 const Home = () => {
-  const [memos, setMemos] = useState([]);
+  //const [memos, setMemos] = useState([]);
+  const memos = MockDataMemo; // 목데이터로 확인
 
   return (
     <main className="min-h-screen w-full bg-[#E4EDFF] px-[120px] pt-[72px] pb-[86px]">
