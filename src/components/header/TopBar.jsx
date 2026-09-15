@@ -2,11 +2,13 @@ import iconAddMemoBtn from "../../assets/icons/button-add-memo.svg";
 import iconProfileBtn from "../../assets/icons/button-profile.svg";
 import IconButton from "../common/IconButton";
 import SearchInput from "./SearchInput";
+import TagFilter from "./TagFilter";
 
-export default function TopBar({ keyword, onKeywordChange }) {
+export default function TopBar({ keyword, onKeywordChange, activeTag, onTagChange }) {
   return (
     <header className="mb-8 flex items-center gap-6">
       <div className="flex grow items-center gap-3 rounded-[28px] bg-white-00 p-4">
+        <TagFilter activeTag={activeTag} onChange={onTagChange} />
         <SearchInput value={keyword} onChange={onKeywordChange} />
       </div>
       <IconButton icon={iconAddMemoBtn} label="새 메모 작성" className="size-20" />
