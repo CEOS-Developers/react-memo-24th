@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../api/auth";
+import { useAuthStore } from "../store/authStore";
 import Input from "../components/common/Input";
 
 function LoginPage() {
@@ -10,8 +12,34 @@ function LoginPage() {
   const isFormComplete =
     loginId.trim().length > 0 && password.trim().length > 0;
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!isFormComplete || isSubmitting) {
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      const response = await login({
+        email: loginId,
+        password,
+      });
+
+      if (!response.success) {
+        throw new Error(response.message);
+      }
+
+      setAccessToken(response.data.accessToken);
+    } catch (error) {
+      console.error("로그인 요청에 실패했습니다.", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -40,14 +68,14 @@ function LoginPage() {
 
         <button
           type="submit"
-          disabled={!isFormComplete}
+          disabled={!isFormComplete || isSubmitting}
           className={`h-14 rounded-xl px-5 font-bold ${
             isFormComplete
-              ? "cursor-pointer bg-blue-05 text-white"
+              ? "bg-blue-05 text-white"
               : "cursor-not-allowed bg-blue-03 text-gray-01"
           }`}
         >
-          로그인
+          {isSubmitting ? "로그인 중..." : "로그인"}
         </button>
 
         {/* 하단 메뉴 */}
