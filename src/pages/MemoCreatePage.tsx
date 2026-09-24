@@ -5,13 +5,17 @@ import dropdownArrowIcon from "../assets/icons/icon-dropdown-arrow.svg";
 
 function MemoCreatePage() {
   const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const today = new Date();
-  const dateText = `${today.getFullYear()}.${String(
-    today.getMonth() + 1,
-  ).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")}`;
+
+  const dateText = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0"),
+  ].join(".");
 
   return (
     <main className="min-h-screen bg-white px-6 py-14">

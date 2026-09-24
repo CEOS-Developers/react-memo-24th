@@ -1,29 +1,21 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import addMemoEmptyIcon from "../assets/icons/icon-add-memo-empty.svg";
 import addMemoHeaderIcon from "../assets/icons/icon-add-memo-header.svg";
-import dropdownArrowIcon from "../assets/icons/icon-dropdown-arrow.svg";
 import profileIcon from "../assets/icons/icon-profile.svg";
+import TagSelect, { type MemoFilter } from "../components/memo/TagSelect";
 import searchIcon from "../assets/icons/icon-search.svg";
 
 function MemoPage() {
   const navigate = useNavigate();
+  const [selectedTag, setSelectedTag] = useState<MemoFilter>("all");
+
   return (
     <main className="min-h-screen bg-blue-01 px-6 py-14">
       <div className="mx-auto flex w-full max-w-[920px] flex-col">
         <header className="flex items-center gap-4">
           <div className="flex h-16 flex-1 items-center rounded-[24px] bg-white px-3">
-            <button
-              type="button"
-              className="flex h-10 cursor-pointer items-center gap-1 rounded-full bg-blue-01 px-3 text-body-small font-bold text-blue-07"
-            >
-              태그 선택
-              <img
-                src={dropdownArrowIcon}
-                alt=""
-                aria-hidden="true"
-                className="h-3 w-3"
-              />
-            </button>
+            <TagSelect value={selectedTag} onChange={setSelectedTag} />
 
             <input
               type="search"
