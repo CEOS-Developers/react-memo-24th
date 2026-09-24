@@ -11,6 +11,7 @@ type TagSelectProps = {
   value: MemoFilter | null;
   onChange: (tag: MemoFilter) => void;
   showAll?: boolean;
+  variant?: "filter" | "editor";
 };
 
 const tagOptions: Array<{
@@ -24,7 +25,12 @@ const tagOptions: Array<{
   { value: "others", label: "Others", icon: othersDotIcon },
 ];
 
-function TagSelect({ value, onChange, showAll = true }: TagSelectProps) {
+function TagSelect({
+  value,
+  onChange,
+  showAll = true,
+  variant = "filter",
+}: TagSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const availableOptions = showAll
@@ -32,6 +38,13 @@ function TagSelect({ value, onChange, showAll = true }: TagSelectProps) {
     : tagOptions.filter((option) => option.value !== "all");
 
   const selectedOption = tagOptions.find((option) => option.value === value);
+
+  const buttonStyle =
+    variant === "editor"
+      ? value === null
+        ? "h-9 rounded-[36px] bg-blue-02 px-4 py-1.5 text-blue-07"
+        : "h-9 rounded-[28px] bg-blue-01 px-4 py-1.5 text-blue-05"
+      : "rounded-full bg-blue-01 px-3 py-2 text-blue-05";
 
   return (
     <div className="relative">
