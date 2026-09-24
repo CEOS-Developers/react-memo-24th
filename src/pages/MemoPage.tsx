@@ -8,14 +8,17 @@ import searchIcon from "../assets/icons/icon-search.svg";
 
 function MemoPage() {
   const navigate = useNavigate();
-  const [selectedTag, setSelectedTag] = useState<MemoFilter>("all");
+  const [selectedTag, setSelectedTag] = useState<MemoFilter | null>(null);
 
   return (
     <main className="min-h-screen bg-blue-01 px-6 py-14">
       <div className="mx-auto flex w-full max-w-[920px] flex-col">
         <header className="flex items-center gap-4">
           <div className="flex h-16 flex-1 items-center rounded-[24px] bg-white px-3">
-            <TagSelect value={selectedTag} onChange={setSelectedTag} />
+            <TagSelect
+              value={selectedTag}
+              onChange={(tag) => setSelectedTag(tag)}
+            />
 
             <input
               type="search"

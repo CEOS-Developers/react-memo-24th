@@ -1,6 +1,6 @@
 import { useState } from "react";
-import dailyDotIcon from "../../assets/icons/dot-daily.svg";
 import dropdownArrowIcon from "../../assets/icons/icon-dropdown-arrow.svg";
+import dailyDotIcon from "../../assets/icons/dot-daily.svg";
 import othersDotIcon from "../../assets/icons/dot-others.svg";
 import workDotIcon from "../../assets/icons/dot-work.svg";
 
