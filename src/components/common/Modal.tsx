@@ -26,7 +26,7 @@ function Modal({ title, description, confirmLabel, onConfirm }: ModalProps) {
         <button
           type="button"
           onClick={onConfirm}
-          className="mt-10 h-14 rounded-xl bg-blue-05 px-5 font-bold text-white"
+          className="mt-10 h-14 cursor-pointer rounded-xl bg-blue-05 px-5 font-bold text-white"
         >
           {confirmLabel}
         </button>

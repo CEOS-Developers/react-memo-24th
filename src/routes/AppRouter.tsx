@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import MemoPage from "../pages/MemoPage";
+import MemoCreatePage from "../pages/MemoCreatePage";
 
 function AppRouter() {
   return (
@@ -10,6 +11,7 @@ function AppRouter() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/memos" element={<MemoPage />} />
+      <Route path="/memos/new" element={<MemoCreatePage />} />
     </Routes>
   );
 }
