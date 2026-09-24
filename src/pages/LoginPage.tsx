@@ -39,6 +39,9 @@ function LoginPage() {
       }
 
       setAccessToken(response.data.accessToken);
+      navigate("/memos");
+
+      setAccessToken(response.data.accessToken);
     } catch (error) {
       if (error instanceof TypeError) {
         setIsNetworkModalOpen(true);
