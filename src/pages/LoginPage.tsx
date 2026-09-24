@@ -14,6 +14,7 @@ function LoginPage() {
 
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -24,6 +25,7 @@ function LoginPage() {
 
     try {
       setIsSubmitting(true);
+      setLoginError("");
 
       const response = await login({
         email: loginId,
@@ -36,7 +38,12 @@ function LoginPage() {
 
       setAccessToken(response.data.accessToken);
     } catch (error) {
-      console.error("로그인 요청에 실패했습니다.", error);
+      if (error instanceof TypeError) {
+        console.error("네트워크 요청에 실패했습니다.", error);
+        return;
+      }
+
+      setLoginError("아이디 또는 비밀번호가 옳지 않습니다.");
     } finally {
       setIsSubmitting(false);
     }
@@ -49,12 +56,12 @@ function LoginPage() {
         className="flex w-full max-w-[544px] flex-col gap-4"
       >
         <Input
-          type="text"
+          type="email"
           value={loginId}
           onChange={(event) => setLoginId(event.target.value)}
           placeholder="아이디를 입력하세요"
           ariaLabel="아이디"
-          autoComplete="username"
+          autoComplete="email"
         />
 
         <Input
@@ -65,6 +72,12 @@ function LoginPage() {
           ariaLabel="비밀번호"
           autoComplete="current-password"
         />
+
+        {loginError && (
+          <p role="alert" className="text-body-small text-alert-01">
+            *{loginError}
+          </p>
+        )}
 
         <button
           type="submit"

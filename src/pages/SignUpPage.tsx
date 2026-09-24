@@ -82,7 +82,7 @@ function SignUpPage() {
         />
 
         {errorMessage && (
-          <p role="alert" className="text-body-small text-point">
+          <p role="alert" className="text-body-small text-alert-01">
             {errorMessage}
           </p>
         )}
