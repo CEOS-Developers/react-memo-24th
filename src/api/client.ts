@@ -1,4 +1,4 @@
-const BASE_URL = "https://3-37-186-61.nip.io";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 type RequestOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
