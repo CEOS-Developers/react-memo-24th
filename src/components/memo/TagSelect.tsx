@@ -1,11 +1,9 @@
 import { useState } from "react";
+import type { MemoFilter } from "../../types/memo";
 import dropdownArrowIcon from "../../assets/icons/icon-dropdown-arrow.svg";
 import dailyDotIcon from "../../assets/icons/dot-daily.svg";
 import othersDotIcon from "../../assets/icons/dot-others.svg";
 import workDotIcon from "../../assets/icons/dot-work.svg";
-
-export type MemoTag = "daily" | "work" | "others";
-export type MemoFilter = "all" | MemoTag;
 
 type TagSelectProps = {
   value: MemoFilter | null;
@@ -52,7 +50,7 @@ function TagSelect({
         type="button"
         onClick={() => setIsOpen((current) => !current)}
         aria-expanded={isOpen}
-        className="flex cursor-pointer items-center gap-1 rounded-full bg-blue-01 px-3 py-2 text-body-small font-bold text-blue-05"
+        className={`flex cursor-pointer items-center gap-1 text-body-small font-bold ${buttonStyle}`}
       >
         {selectedOption?.icon && (
           <img
