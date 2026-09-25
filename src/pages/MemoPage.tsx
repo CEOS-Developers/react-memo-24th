@@ -1,14 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMemoStore } from "../store/memoStore";
+import type { MemoFilter } from "../types/memo";
+import TagSelect from "../components/memo/TagSelect";
 import addMemoEmptyIcon from "../assets/icons/icon-add-memo-empty.svg";
 import addMemoHeaderIcon from "../assets/icons/icon-add-memo-header.svg";
 import profileIcon from "../assets/icons/icon-profile.svg";
-import TagSelect, { type MemoFilter } from "../components/memo/TagSelect";
 import searchIcon from "../assets/icons/icon-search.svg";
+import MemoCard from "../components/memo/MemoCard";
 
 function MemoPage() {
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState<MemoFilter | null>(null);
+  const memos = useMemoStore((state) => state.memos);
+  const toggleMemoPin = useMemoStore((state) => state.toggleMemoPin);
+
+  const displayedMemos = [...memos]
+    .filter((memo) => {
+      return (
+        selectedTag === null ||
+        selectedTag === "all" ||
+        memo.tag === selectedTag
+      );
+    })
+    .sort((firstMemo, secondMemo) => {
+      return Number(secondMemo.isPinned) - Number(firstMemo.isPinned);
+    });
 
   return (
     <main className="min-h-screen bg-blue-01 px-6 py-14">
@@ -60,23 +77,31 @@ function MemoPage() {
           </span>
         </header>
 
-        <section className="mt-14 flex min-h-[540px] items-center justify-center rounded-[20px] border-2 border-dashed border-blue-02">
-          <button
-            type="button"
-            onClick={() => navigate("/memos/new")}
-            className="flex cursor-pointer flex-col items-center"
-          >
-            <img
-              src={addMemoEmptyIcon}
-              alt=""
-              aria-hidden="true"
-              className="h-24 w-24"
-            />
-            <span className="mt-5 text-body-medium font-semibold text-blue-03">
-              새로운 메모를 작성해보세요!
-            </span>
-          </button>
-        </section>
+        {displayedMemos.length === 0 ? (
+          <section className="mt-14 flex min-h-[540px] items-center justify-center rounded-[20px] border-2 border-dashed border-blue-02">
+            <button
+              type="button"
+              onClick={() => navigate("/memos/new")}
+              className="flex cursor-pointer flex-col items-center"
+            >
+              <img
+                src={addMemoEmptyIcon}
+                alt=""
+                aria-hidden="true"
+                className="h-24 w-24"
+              />
+              <span className="mt-5 text-body-medium font-semibold text-blue-03">
+                새로운 메모를 작성해보세요!
+              </span>
+            </button>
+          </section>
+        ) : (
+          <section className="mt-14 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5">
+            {displayedMemos.map((memo) => (
+              <MemoCard key={memo.id} memo={memo} onTogglePin={toggleMemoPin} />
+            ))}
+          </section>
+        )}
       </div>
     </main>
   );

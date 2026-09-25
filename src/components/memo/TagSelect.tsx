@@ -42,7 +42,7 @@ function TagSelect({
       ? value === null
         ? "h-9 rounded-[36px] bg-blue-02 px-4 py-1.5 text-blue-07"
         : "h-9 rounded-[28px] bg-blue-01 px-4 py-1.5 text-blue-05"
-      : "rounded-full bg-blue-01 px-3 py-2 text-blue-05";
+      : "h-9 w-[120px] shrink-0 justify-center rounded-[36px] bg-blue-01 px-4 py-1.5 text-blue-05";
 
   return (
     <div className="relative">
