@@ -1,100 +1,76 @@
-# 3주차 과제: React Memo - API 연동
-<br>
+# React Memo
 
-[2주차 README 백업](https://app.notion.com/p/README-3d325975dbba803c9d1efcf3358dd947?source=copy_link)
 
-필수 구현 사항과 Review Question은 이 링크에서 확인 부탁드립니다.
+## 1. 기술 스택
 
-<br>
+| 구분 | 기술 |
+| --- | --- |
+| UI | React 19, TypeScript 6 |
+| 개발·빌드 | Vite 8 |
+| 스타일 | Tailwind CSS 4, Pretendard |
+| 라우팅 | React Router 7 |
+| 서버 상태 관리 | TanStack Query 5 |
+| 인증 상태 관리 | Zustand 5 |
+| 폼 관리 | React Hook Form 7 |
+| HTTP 통신 | Axios 1 |
+| 코드 검사 | ESLint 10 |
+| 패키지 관리 | pnpm |
 
-# 서론
+## 2. 주요 기능
 
-안녕하세요 🙌🏻 24기 프론트엔드 운영진 **이승연**입니다.
+- **회원가입·로그인**: 이메일과 비밀번호를 이용한 인증
+- **메모 목록 조회**: 카테고리별 카드와 즐겨찾기·일반 메모 구분
+- **검색·필터**: 불러온 메모의 제목·내용 검색 및 카테고리 필터
+- **상세 보기**: 메모의 전체 내용을 모달로 확인
 
-다들 2주차 미션인 React Memo를 만드시느라 수고 많으셨습니다! 지난 미션에서는 Vanilla JS로 구현했던 Memo 서비스를 React로 전환하면서, 컴포넌트 기반 개발 방식과 React Hooks를 활용한 상태 관리를 경험해보셨을 것이라 생각합니다.
+## 3. 지금까지 구현한 기능
 
-이번 미션은 2주차에 구현한 Memo 서비스에 **로그인과 회원가입 페이지를 추가하고, API를 연동하는 것**입니다❗️
+현재 구현 범위는 다음과 같습니다.
+- 이메일 형식, 비밀번호 8자 이상, 비밀번호 확인 검증 후 회원가입 요청
+- 로그인 성공 시 액세스 토큰 저장 및 메인 페이지 이동
+- 토큰이 없으면 로그인 페이지로 이동, Axios 요청에 Bearer 토큰 추가
+- 검색·필터는 **현재까지 불러온 메모**에 적용됩니다.
+- 즐겨찾기 변경은 화면의 로컬 상태에만 반영되며 서버에 저장되지 않습니다.
+- 토큰을 영속 저장하지 않으므로 새로고침하면 다시 로그인해야 합니다.
+- 메모 생성·수정·삭제, 마이페이지, 아이디·비밀번호 찾기는 버튼 UI만 있습니다.
+- 서버 전체 검색·필터, 토큰 갱신, 메모 목록 오류 안내·재시도 UI는 아직 구현하지 않았습니다.
 
-이번 주차에는 서버와 데이터를 주고받으며 로그인과 회원가입이 어떻게 이루어지는지 살펴보게 됩니다. 사용자가 입력한 정보를 서버에 어떤 형태로 전달하는지, 서버의 응답에 따라 화면과 상태를 어떻게 변경해야 하는지 고민해보시기 바랍니다.
+## 4. 파일 구조
 
-또한 이번 과제에서는 **Zustand와 TypeScript 사용이 필수입니다.** Zustand를 활용하면서 여러 컴포넌트에서 공유해야 하는 상태와 개별 컴포넌트에서 관리할 상태를 구분해보세요. TypeScript로 컴포넌트의 props와 API 요청·응답 데이터의 타입을 정의하며, 타입을 활용하는 개발 방식에도 익숙해져 보시면 좋겠습니다.
-
-API 연동이 처음이라면 다소 낯설게 느껴질 수 있습니다. 제공된 API 명세를 꼼꼼히 읽고, 요청과 응답을 하나씩 확인하면서 진행해보세요. 여유가 있다면 메모 작성·수정·삭제 API 연동과 마이페이지 UI 구현에도 도전해보시기 바랍니다!
-
-과제를 진행하다가 막히는 부분이 있더라도, 우선은 스스로 공부하고 찾아보며 해결해보는 과정을 권장드립니다. 다만 미션과 관련해 운영진의 도움이 필요하다면, 언제든 프론트엔드 카카오톡방에 질문 남겨주세요!
-
-<br>
-
-# 과제
-
-## 🎯 목표
-
-- **API 명세**를 이해하고, 서버와 데이터를 주고받는 방법을 익힙니다.
-- 로그인과 회원가입을 구현하며 **인증의 기본적인 흐름**을 이해합니다.
-- API 요청의 로딩·성공·실패 **상태에 따른 UI 처리**를 고민합니다.
-- **Zustand**를 활용한 전역 상태 관리 방법을 익힙니다.
-- 컴포넌트의 **지역 상태와 전역 상태를 구분**하고 적절하게 관리합니다.
-- **TypeScript**를 활용하여 컴포넌트의 props와 API 요청·응답 데이터의 타입을 정의합니다.
-
-## 📅 기한
-
-- **2026년 9월 27일 일요일 14:00까지**
-
-## 💬 Review Questions
-
-- 로그인 또는 회원가입 API 요청의 **로딩·성공·실패 상태**에 따라 UI를 어떻게 처리했나요? 본인의 구현 사례를 바탕으로 설명해주세요. 아직 구현하지 않은 상태라면, 사용자 경험을 고려하여 어떻게 처리하면 좋을지 작성해주세요.
-- React의 `useState`와 Zustand는 상태 관리 방식에서 어떤 차이가 있나요? 이번 과제에서 전역으로 관리한 상태는 무엇이며, 그렇게 결정한 이유는 무엇인가요?
-- 이번 과제에서 **TypeScript를 활용하며 느낀 장점과 어려움**은 무엇인가요? 컴포넌트의 props나 API 요청·응답에 타입을 정의한 사례를 바탕으로 설명해주세요.
-
-## 💡 필수 요건
-
-- 2주차에 React로 구현했던 **Memo 서비스를 기반으로 진행**합니다.
-- 피그마에 제공된 UI를 기준으로 **로그인 페이지를 구현하고, 로그인 API를 연동**합니다.
-- 피그마에 제공된 UI를 기준으로 **회원가입 페이지를 구현하고, 회원가입 API를 연동**합니다.
-- **Zustand를 사용하여 전역 상태를 관리**합니다.
-- **TypeScript를 사용하여 프로젝트를 진행**합니다.
-
-  ### 🗂️ API 연동 관련 자료
-  [API 명세서](https://app.notion.com/p/API-3da25975dbba80e48b96c4aaf56f8cb5?source=copy_link) <br>
-  [Swagger 링크](https://3-37-186-61.nip.io/swagger-ui/index.html#/)
-
-<br>
-
-## ✅ 선택 요건
-
-- 메모 **작성·수정·삭제 API를 연동**합니다.
-- 추가 페이지인 **마이페이지 UI를 구현**합니다.
-
-<br>
-
-# 링크 및 참고자료
-
-## HTTP와 API 연동
-
-- [MDN — HTTP 요청 메서드](https://developer.mozilla.org/ko/docs/Web/HTTP/Reference/Methods)
-- [MDN — HTTP 상태 코드](https://developer.mozilla.org/ko/docs/Web/HTTP/Reference/Status)
-- [MDN — async function](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function)
-- [모던 JavaScript 튜토리얼 — fetch](https://ko.javascript.info/fetch)
-- [MDN — Fetch API 사용하기](https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch)
-
-## React의 폼과 상태 관리
-
-- [React — State를 사용해 Input 다루기](https://ko.react.dev/learn/reacting-to-input-with-state)
-- [React — 컴포넌트 간 State 공유하기](https://ko.react.dev/learn/sharing-state-between-components)
-
-## Zustand
-
-- [Zustand — 시작하기 (영문)](https://zustand.docs.pmnd.rs/learn/getting-started/introduction)
-- [Zustand — TypeScript 기초 가이드 (영문)](https://zustand.docs.pmnd.rs/learn/guides/beginner-typescript.html)
-
-## TypeScript
-
-- [TypeScript — JavaScript 개발자를 위한 TypeScript](https://www.typescriptlang.org/ko/docs/handbook/typescript-in-5-minutes.html)
-- [TypeScript — 기본 타입과 타입 정의](https://www.typescriptlang.org/ko/docs/handbook/2/everyday-types.html)
-- [React — TypeScript 사용하기](https://ko.react.dev/learn/typescript)
-- [ts 절대경로 설정하기](https://tesseractjh.tistory.com/232)
-- [리액트 프로젝트에서 타입스크립트 사용하기(시리즈)](https://velog.io/@velopert/series/react-with-typescript)
-
-## Network 탭에서 실제 요청과 응답을 확인하는 방법 (참고용)
-
-- [Chrome DevTools — 네트워크 활동 검사](https://developer.chrome.com/docs/devtools/network?hl=ko)
+```text
+src/
+├── apis/
+│   ├── auth.ts                 # 회원가입·로그인 API
+│   ├── axios.ts                # 공통 Axios 인스턴스와 인증 헤더
+│   └── memos.ts                # 메모 목록 API
+├── assets/fonts/               # Pretendard 폰트
+├── components/
+│   ├── icons/                  # SVG 아이콘
+│   ├── skeletons/
+│   │   └── MemoListSkeleton.tsx # 메모 로딩 스켈레톤
+│   ├── MemoLists.tsx           # 메모 카드 목록과 빈 상태
+│   ├── MemoModal.tsx           # 메모 상세 모달
+│   └── Select.tsx              # 카테고리 선택 UI
+├── constants/
+│   └── tags.ts                 # 카테고리 표시명·색상·선택 옵션
+├── data/
+│   └── mockData.ts             # 개발용 데이터, 현재 메인 화면에는 미사용
+├── hooks/queries/
+│   └── useInfiniteMemos.ts     # 무한 스크롤 조회·캐시 관리
+├── pages/
+│   ├── LoginPage.tsx
+│   ├── SignupPage.tsx
+│   └── MainPage.tsx
+├── routes/
+│   ├── PublicRoute.tsx         # 페이지 경로 설정
+│   └── ProtectedRoute.tsx      # 인증 여부에 따른 접근 제어
+├── stores/
+│   └── useAuthStore.ts         # 액세스 토큰 상태
+├── types/
+│   ├── auth.ts                 # 인증 요청·응답 타입
+│   ├── memos.ts                # 메모·페이지 응답 타입
+│   └── response.ts             # 공통 API 응답 타입
+├── App.tsx                     # 쿼리·라우터 Provider
+├── main.tsx                    # 앱 진입점
+└── index.css                   # 색상·타이포그래피 테마
+```
