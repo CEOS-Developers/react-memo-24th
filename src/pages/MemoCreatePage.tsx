@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TagSelect, { type MemoTag } from "../components/memo/TagSelect";
+import { useMemoStore } from "../store/memoStore";
+import type { MemoTag } from "../types/memo";
+import TagSelect from "../components/memo/TagSelect";
 import backIcon from "../assets/icons/icon-back.svg";
 
 function MemoCreatePage() {
@@ -9,9 +11,24 @@ function MemoCreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tag, setTag] = useState<MemoTag | null>(null);
+  const addMemo = useMemoStore((state) => state.addMemo);
 
   const isFormComplete =
     tag !== null && title.trim().length > 0 && content.trim().length > 0;
+
+  function handleComplete() {
+    if (!isFormComplete || tag === null) {
+      return;
+    }
+
+    addMemo({
+      title,
+      content,
+      tag,
+    });
+
+    navigate("/memos");
+  }
 
   const memoBackgroundStyle =
     tag === "daily"
@@ -98,6 +115,7 @@ function MemoCreatePage() {
 
             <button
               type="button"
+              onClick={handleComplete}
               disabled={!isFormComplete}
               className={`h-14 flex-1 rounded-xl font-bold ${
                 isFormComplete

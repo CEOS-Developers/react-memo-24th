@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMemoStore } from "../store/memoStore";
 import type { MemoFilter } from "../types/memo";
+import SearchEmpty from "../components/memo/SearchEmpty";
 import TagSelect from "../components/memo/TagSelect";
 import addMemoEmptyIcon from "../assets/icons/icon-add-memo-empty.svg";
 import addMemoHeaderIcon from "../assets/icons/icon-add-memo-header.svg";
@@ -12,16 +13,25 @@ import MemoCard from "../components/memo/MemoCard";
 function MemoPage() {
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState<MemoFilter | null>(null);
+  const [searchKeyword, setSearchKeyword] = useState("");
   const memos = useMemoStore((state) => state.memos);
   const toggleMemoPin = useMemoStore((state) => state.toggleMemoPin);
 
   const displayedMemos = [...memos]
     .filter((memo) => {
-      return (
+      const isTagMatched =
         selectedTag === null ||
         selectedTag === "all" ||
-        memo.tag === selectedTag
-      );
+        memo.tag === selectedTag;
+
+      const keyword = searchKeyword.trim().toLowerCase();
+
+      const isSearchMatched =
+        keyword.length === 0 ||
+        memo.title.toLowerCase().includes(keyword) ||
+        memo.content.toLowerCase().includes(keyword);
+
+      return isTagMatched && isSearchMatched;
     })
     .sort((firstMemo, secondMemo) => {
       return Number(secondMemo.isPinned) - Number(firstMemo.isPinned);
@@ -39,6 +49,8 @@ function MemoPage() {
 
             <input
               type="search"
+              value={searchKeyword}
+              onChange={(event) => setSearchKeyword(event.target.value)}
               placeholder="원하는 메모를 검색하세요"
               aria-label="메모 검색"
               className="min-w-0 flex-1 bg-transparent px-3 text-body-small text-gray-05 outline-none placeholder:text-gray-02"
@@ -77,7 +89,7 @@ function MemoPage() {
           </span>
         </header>
 
-        {displayedMemos.length === 0 ? (
+        {memos.length === 0 ? (
           <section className="mt-14 flex min-h-[540px] items-center justify-center rounded-[20px] border-2 border-dashed border-blue-02">
             <button
               type="button"
@@ -95,6 +107,8 @@ function MemoPage() {
               </span>
             </button>
           </section>
+        ) : displayedMemos.length === 0 ? (
+          <SearchEmpty />
         ) : (
           <section className="mt-14 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5">
             {displayedMemos.map((memo) => (

@@ -25,9 +25,9 @@ function MemoCard({ memo, onTogglePin }: MemoCardProps) {
 
   return (
     <article
-      className={`flex min-h-[304px] flex-col rounded-[20px] p-6 text-white ${cardBackground}`}
+      className={`flex h-[285px] w-[285px] flex-col items-center justify-center gap-2.5 rounded-[20px] px-5 py-3 text-white ${cardBackground}`}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex w-full items-start justify-between gap-4">
         <h2 className="text-heading-small font-bold">{memo.title}</h2>
 
         <button
@@ -46,9 +46,11 @@ function MemoCard({ memo, onTogglePin }: MemoCardProps) {
         </button>
       </div>
 
-      <p className="mt-4 whitespace-pre-wrap text-body-small">{memo.content}</p>
+      <p className="mt-4 w-full whitespace-pre-wrap text-body-small">
+        {memo.content}
+      </p>
 
-      <div className="mt-auto flex items-center justify-between pt-6 text-body-small">
+      <div className="mt-auto flex w-full items-center justify-between pt-6 text-body-small">
         <span className="capitalize">{memo.tag}</span>
         <time dateTime={memo.createdAt}>{dateText}</time>
       </div>
