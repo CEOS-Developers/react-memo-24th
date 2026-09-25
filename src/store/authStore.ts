@@ -1,19 +1,31 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type AuthState = {
   accessToken: string | null;
-  setAccessToken: (accessToken: string) => void;
+  email: string | null;
+  setAccessToken: (token: string) => void;
+  setEmail: (email: string) => void;
   clearAccessToken: () => void;
 };
 
-export const useAuthStore = create<AuthState>((set) => ({
-  accessToken: null,
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      accessToken: null,
+      email: null,
 
-  setAccessToken: (accessToken) => {
-    set({ accessToken });
-  },
+      setAccessToken: (token) => set({ accessToken: token }),
+      setEmail: (email) => set({ email }),
 
-  clearAccessToken: () => {
-    set({ accessToken: null });
-  },
-}));
+      clearAccessToken: () =>
+        set({
+          accessToken: null,
+          email: null,
+        }),
+    }),
+    {
+      name: "memo-auth",
+    },
+  ),
+);

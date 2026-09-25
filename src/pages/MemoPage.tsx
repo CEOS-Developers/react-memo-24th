@@ -13,6 +13,7 @@ import searchIcon from "../assets/icons/icon-search.svg";
 
 function MemoPage() {
   const navigate = useNavigate();
+
   const [selectedTag, setSelectedTag] = useState<MemoFilter | null>(null);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedMemo, setSelectedMemo] = useState<Memo | null>(null);
@@ -89,7 +90,7 @@ function MemoPage() {
 
           <button
             type="button"
-            onClick={() => navigate("/mypage")}
+            onClick={() => navigate("/memos/mypage")}
             aria-label="마이페이지로 이동"
             className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-white"
           >
@@ -115,6 +116,7 @@ function MemoPage() {
                 aria-hidden="true"
                 className="h-24 w-24"
               />
+
               <span className="mt-5 text-body-medium font-semibold text-blue-03">
                 새로운 메모를 작성해보세요!
               </span>

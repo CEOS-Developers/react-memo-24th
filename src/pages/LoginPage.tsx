@@ -14,6 +14,7 @@ function LoginPage() {
     loginId.trim().length > 0 && password.trim().length > 0;
 
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const setEmail = useAuthStore((state) => state.setEmail);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [isNetworkModalOpen, setIsNetworkModalOpen] = useState(false);
@@ -39,9 +40,8 @@ function LoginPage() {
       }
 
       setAccessToken(response.data.accessToken);
+      setEmail(loginId);
       navigate("/memos");
-
-      setAccessToken(response.data.accessToken);
     } catch (error) {
       if (error instanceof TypeError) {
         setIsNetworkModalOpen(true);
