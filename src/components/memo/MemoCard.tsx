@@ -5,9 +5,10 @@ import type { Memo } from "../../types/memo";
 type MemoCardProps = {
   memo: Memo;
   onTogglePin: (id: string) => void;
+  onOpen: (memo: Memo) => void;
 };
 
-function MemoCard({ memo, onTogglePin }: MemoCardProps) {
+function MemoCard({ memo, onTogglePin, onOpen }: MemoCardProps) {
   const cardBackground =
     memo.tag === "daily"
       ? "bg-blue-04"
@@ -25,16 +26,19 @@ function MemoCard({ memo, onTogglePin }: MemoCardProps) {
 
   return (
     <article
-      className={`flex h-[285px] w-[285px] flex-col items-center justify-center gap-2.5 rounded-[20px] px-5 py-3 text-white ${cardBackground}`}
+      onClick={() => onOpen(memo)}
+      className={`flex h-[285px] w-[285px] cursor-pointer flex-col items-center justify-center gap-2.5 rounded-[20px] px-5 py-3 text-white ${cardBackground}`}
     >
       <div className="flex w-full items-start justify-between gap-4">
         <h2 className="text-heading-small font-bold">{memo.title}</h2>
 
         <button
           type="button"
-          onClick={() => onTogglePin(memo.id)}
+          onClick={(event) => {
+            event.stopPropagation();
+            onTogglePin(memo.id);
+          }}
           aria-label={memo.isPinned ? "메모 고정 해제" : "메모 고정"}
-          aria-pressed={memo.isPinned}
           className="cursor-pointer"
         >
           <img

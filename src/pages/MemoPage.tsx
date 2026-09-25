@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMemoStore } from "../store/memoStore";
-import type { MemoFilter } from "../types/memo";
+import type { Memo, MemoFilter } from "../types/memo";
 import SearchEmpty from "../components/memo/SearchEmpty";
 import TagSelect from "../components/memo/TagSelect";
+import MemoCard from "../components/memo/MemoCard";
+import MemoDetailModal from "../components/memo/MemoDetailModal";
 import addMemoEmptyIcon from "../assets/icons/icon-add-memo-empty.svg";
 import addMemoHeaderIcon from "../assets/icons/icon-add-memo-header.svg";
 import profileIcon from "../assets/icons/icon-profile.svg";
 import searchIcon from "../assets/icons/icon-search.svg";
-import MemoCard from "../components/memo/MemoCard";
 
 function MemoPage() {
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState<MemoFilter | null>(null);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedMemo, setSelectedMemo] = useState<Memo | null>(null);
+
   const memos = useMemoStore((state) => state.memos);
   const toggleMemoPin = useMemoStore((state) => state.toggleMemoPin);
 
@@ -112,11 +115,23 @@ function MemoPage() {
         ) : (
           <section className="mt-14 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5">
             {displayedMemos.map((memo) => (
-              <MemoCard key={memo.id} memo={memo} onTogglePin={toggleMemoPin} />
+              <MemoCard
+                key={memo.id}
+                memo={memo}
+                onTogglePin={toggleMemoPin}
+                onOpen={setSelectedMemo}
+              />
             ))}
           </section>
         )}
       </div>
+
+      {selectedMemo && (
+        <MemoDetailModal
+          memo={selectedMemo}
+          onClose={() => setSelectedMemo(null)}
+        />
+      )}
     </main>
   );
 }
