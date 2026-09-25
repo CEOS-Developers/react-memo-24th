@@ -87,9 +87,19 @@ function MemoPage() {
             />
           </button>
 
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white">
-            <img src={profileIcon} alt="프로필" className="h-8 w-8" />
-          </span>
+          <button
+            type="button"
+            onClick={() => navigate("/mypage")}
+            aria-label="마이페이지로 이동"
+            className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-white"
+          >
+            <img
+              src={profileIcon}
+              alt=""
+              aria-hidden="true"
+              className="h-8 w-8"
+            />
+          </button>
         </header>
 
         {memos.length === 0 ? (
