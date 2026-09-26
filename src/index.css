@@ -1,0 +1,16 @@
+@import './styles/style.css';
+
+/* 1. 전체 화면 하늘색 배경 및 폰트 강제 적용 */
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-blue-01) !important;
+  color: var(--color-blue-07);
+  font-family: var(--font-family-base);
+}
+
+/* 2. 리액트 최상위 컨테이너 (페이지별 레이아웃은 각 페이지 컴포넌트에서 담당) */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
